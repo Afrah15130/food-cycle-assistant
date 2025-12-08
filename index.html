@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -25,27 +25,209 @@
             border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             overflow: hidden;
+            display: none;
         }
 
+        .container.active {
+            display: block;
+        }
+
+        /* Landing Page */
+        .landing-page {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .landing-page h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .landing-page .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease;
+        }
+
+        .landing-page .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            max-width: 1000px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+            animation: fadeIn 1s ease;
+        }
+
+        .feature-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .landing-buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Auth Pages */
+        .auth-container {
+            max-width: 450px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-header h2 {
+            color: #11998e;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .auth-header p {
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #11998e;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .auth-footer a {
+            color: #11998e;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             color: white;
             padding: 30px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+        .header-left h1 {
+            font-size: 2em;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
+        .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 8px 20px;
+            font-size: 0.9em;
         }
 
         .main-content {
@@ -53,8 +235,8 @@
         }
 
         .upload-section {
-            background: #f8f9fa;
-            border: 3px dashed #667eea;
+            background: #f0fdf4;
+            border: 3px dashed #11998e;
             border-radius: 10px;
             padding: 40px;
             text-align: center;
@@ -64,13 +246,13 @@
         }
 
         .upload-section:hover {
-            background: #e9ecef;
-            border-color: #764ba2;
+            background: #dcfce7;
+            border-color: #38ef7d;
         }
 
         .upload-section.dragover {
-            background: #e7e9fc;
-            border-color: #5a67d8;
+            background: #bbf7d0;
+            border-color: #22c55e;
             transform: scale(1.02);
         }
 
@@ -91,27 +273,6 @@
 
         #fileInput {
             display: none;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
 
         .preview-section {
@@ -136,7 +297,7 @@
         }
 
         .result-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
             border-radius: 10px;
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -225,7 +386,7 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: #667eea;
+            background: #11998e;
         }
 
         .loading {
@@ -236,7 +397,7 @@
 
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
+            border-top: 4px solid #11998e;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -257,7 +418,7 @@
             margin: 5px 5px 5px 0;
         }
 
-        .tag-primary { background: #e7e9fc; color: #5a67d8; }
+        .tag-primary { background: #dcfce7; color: #166534; }
         .tag-success { background: #d4edda; color: #155724; }
         .tag-warning { background: #fff3cd; color: #856404; }
         .tag-danger { background: #f8d7da; color: #721c24; }
@@ -268,9 +429,143 @@
             line-height: 1.6;
         }
 
+        /* Chat Assistant */
+        .chat-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            font-size: 1.8em;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(17, 153, 142, 0.4);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 380px;
+            height: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .chat-window.active {
+            display: flex;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            font-size: 1.2em;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .chat-message {
+            margin-bottom: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .chat-message.bot {
+            text-align: left;
+        }
+
+        .chat-message.user {
+            text-align: right;
+        }
+
+        .message-bubble {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 18px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .chat-message.bot .message-bubble {
+            background: #e9ecef;
+            color: #333;
+        }
+
+        .chat-message.user .message-bubble {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 0.95em;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #11998e;
+        }
+
+        .chat-send {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8em;
+            .landing-page h1 {
+                font-size: 2.5em;
+            }
+            
+            .header-left h1 {
+                font-size: 1.5em;
             }
             
             .main-content {
@@ -280,18 +575,123 @@
             .results-grid {
                 grid-template-columns: 1fr;
             }
+
+            .chat-window {
+                width: calc(100% - 40px);
+                right: 20px;
+                bottom: 90px;
+            }
+
+            .landing-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Landing Page -->
+    <div id="landingPage" class="landing-page active">
+        <h1>🍎 Food Cycle Assistant 🥗</h1>
+        <p class="subtitle">AI-Powered Food Analysis & Shelf Life Prediction</p>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="icon">🌿</div>
+                <h3>Freshness Detection</h3>
+                <p>Analyze food freshness with AI-powered visual inspection</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🍽️</div>
+                <h3>Dish Classification</h3>
+                <p>Identify dishes and ingredients automatically</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Nutrition Analysis</h3>
+                <p>Get detailed nutritional information instantly</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">⏰</div>
+                <h3>Shelf Life Prediction</h3>
+                <p>Know exactly how long your food will last</p>
+            </div>
+        </div>
+
+        <div class="landing-buttons">
+            <button class="btn" onclick="showPage('login')">Login</button>
+            <button class="btn" onclick="showPage('register')">Register</button>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="registerPage" class="auth-container">
+        <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Join Food Cycle Assistant today</p>
+        </div>
+        <form onsubmit="handleRegister(event)">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="regName" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="regEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="regPassword" placeholder="Create a password" required>
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" id="regConfirmPassword" placeholder="Confirm your password" required>
+            </div>
+            <button type="submit" class="btn">Register</button>
+        </form>
+        <div class="auth-footer">
+            Already have an account? <a href="#" onclick="showPage('login')">Login here</a>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="auth-container">
+        <div class="auth-header">
+            <h2>Welcome Back</h2>
+            <p>Login to your account</p>
+        </div>
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <div class="auth-footer">
+            Don't have an account? <a href="#" onclick="showPage('register')">Register here</a>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="container">
         <div class="header">
-            <h1>
-                <span>🍎</span>
-                Food Cycle Assistant
-                <span>🥗</span>
-            </h1>
-            <p>AI-Powered Food Analysis & Shelf Life Prediction</p>
+            <div class="header-left">
+                <h1>
+                    <span>🍎</span>
+                    Food Cycle Assistant
+                </h1>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span>👤 <span id="userName">User</span></span>
+                </div>
+                <button class="btn btn-small btn-secondary" onclick="handleLogout()">Logout</button>
+            </div>
         </div>
 
         <div class="main-content">
@@ -309,7 +709,7 @@
                 <img id="previewImage" class="preview-image" alt="Food preview">
                 <div style="text-align: center; margin-top: 20px;">
                     <button class="btn" onclick="analyzeFood()">🔍 Analyze Food</button>
-                    <button class="btn" onclick="resetApp()" style="background: #6c757d; margin-left: 10px;">
+                    <button class="btn btn-secondary" onclick="resetApp()" style="margin-left: 10px;">
                         🔄 Upload New Image
                     </button>
                 </div>
@@ -324,7 +724,91 @@
         </div>
     </div>
 
+    <!-- Chat Assistant -->
+    <button class="chat-button" id="chatButton" onclick="toggleChat()">💬</button>
+    
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <h3>🤖 Food Assistant</h3>
+            <button class="chat-close" onclick="toggleChat()">×</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message bot">
+                <div class="message-bubble">
+                    Hi! I'm your Food Cycle Assistant. Ask me anything about food storage, nutrition, or recipes! 🍎
+                </div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
+            <button class="chat-send" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
     <script>
+        let currentUser = null;
+
+        function showPage(page) {
+            document.getElementById('landingPage').classList.remove('active');
+            document.getElementById('registerPage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('mainApp').classList.remove('active');
+
+            if (page === 'landing') {
+                document.getElementById('landingPage').classList.add('active');
+            } else if (page === 'register') {
+                document.getElementById('registerPage').style.display = 'block';
+            } else if (page === 'login') {
+                document.getElementById('loginPage').style.display = 'block';
+            } else if (page === 'main') {
+                document.getElementById('mainApp').classList.add('active');
+            }
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            // Store user data (in real app, this would be sent to backend)
+            localStorage.setItem('user', JSON.stringify({ name, email }));
+            currentUser = { name, email };
+            
+            alert('Registration successful! Please login.');
+            showPage('login');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // In real app, validate against backend
+            const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (storedUser.email === email) {
+                currentUser = storedUser;
+                document.getElementById('userName').textContent = currentUser.name;
+                showPage('main');
+            } else {
+                alert('Invalid credentials! Please register first.');
+            }
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            resetApp();
+            showPage('landing');
+        }
+
+        // File upload handlers
         const uploadSection = document.getElementById('uploadSection');
         const fileInput = document.getElementById('fileInput');
         const previewSection = document.getElementById('previewSection');
@@ -332,7 +816,6 @@
         const loading = document.getElementById('loading');
         const results = document.getElementById('results');
 
-        // Drag and drop handlers
         uploadSection.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadSection.classList.add('dragover');
@@ -373,7 +856,6 @@
             loading.style.display = 'block';
             results.innerHTML = '';
 
-            // Simulate AI analysis
             setTimeout(() => {
                 loading.style.display = 'none';
                 displayResults();
@@ -381,7 +863,6 @@
         }
 
         function displayResults() {
-            // Simulated AI results
             const analysisData = {
                 freshness: {
                     score: 85,
@@ -418,7 +899,6 @@
 
             const resultsHTML = `
                 <div class="results-grid">
-                    <!-- Freshness Card -->
                     <div class="result-card">
                         <h3><span class="icon">🌿</span> Freshness Analysis</h3>
                         <div class="freshness-indicator">
@@ -436,10 +916,9 @@
                         </p>
                     </div>
 
-                    <!-- Classification Card -->
                     <div class="result-card">
                         <h3><span class="icon">🍽️</span> Dish Classification</h3>
-                        <h4 style="color: #667eea; margin: 10px 0;">${analysisData.classification.dish}</h4>
+                        <h4 style="color: #11998e; margin: 10px 0;">${analysisData.classification.dish}</h4>
                         <p>
                             <span class="tag tag-primary">${analysisData.classification.category}</span>
                             <span class="tag tag-primary">${analysisData.classification.confidence}% Confidence</span>
@@ -454,7 +933,6 @@
                         </div>
                     </div>
 
-                    <!-- Nutrition Card -->
                     <div class="result-card">
                         <h3><span class="icon">📊</span> Nutrition Facts</h3>
                         <div class="nutrition-table">
@@ -489,7 +967,6 @@
                         </div>
                     </div>
 
-                    <!-- Shelf Life Card -->
                     <div class="result-card">
                         <h3><span class="icon">⏰</span> Shelf Life Prediction</h3>
                         <div class="shelf-life-timeline">
@@ -506,7 +983,7 @@
                                 </div>
                             </div>
                             <div class="timeline-item">
-                                <div class="timeline-dot" style="background: #667eea;"></div>
+                                <div class="timeline-dot" style="background: #11998e;"></div>
                                 <div>
                                     <strong>Refrigerated:</strong> ${analysisData.shelfLife.refrigerated}
                                 </div>
@@ -533,6 +1010,63 @@
             results.innerHTML = '';
             fileInput.value = '';
         }
+
+        // Chat functionality
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            chatWindow.classList.toggle('active');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                input.value = '';
+                
+                setTimeout(() => {
+                    const response = getBotResponse(message);
+                    addMessage(response, 'bot');
+                }, 500);
+            }
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('storage') || lowerMessage.includes('store')) {
+                return 'For optimal storage, keep vegetables in the crisper drawer, fruits at room temperature until ripe, and dairy products on the middle shelf. Always check expiration dates! 🥬';
+            } else if (lowerMessage.includes('nutrition') || lowerMessage.includes('healthy')) {
+                return 'A balanced diet includes fruits, vegetables, whole grains, lean proteins, and healthy fats. Aim for colorful plates! 🌈';
+            } else if (lowerMessage.includes('recipe') || lowerMessage.includes('cook')) {
+                return 'I can help with recipes! Try a simple salad: mix greens, cherry tomatoes, cucumbers, olive oil, and lemon juice. Delicious and healthy! 🥗';
+            } else if (lowerMessage.includes('shelf life') || lowerMessage.includes('last')) {
+                return 'Shelf life varies by food type. Leafy greens last 3-5 days, root vegetables 1-2 weeks, and most fruits 5-7 days when stored properly. 📅';
+            } else if (lowerMessage.includes('fresh') || lowerMessage.includes('spoiled')) {
+                return 'Check for freshness by looking at color, texture, and smell. Wilted leaves, soft spots, or off odors indicate spoilage. 👃';
+            } else {
+                return 'I can help you with food storage tips, nutrition advice, recipes, and shelf life information. What would you like to know? 😊';
+            }
+        }
+
+        // Initialize
+        showPage('landing');
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Cycle Assistant</title>
+    <title>Food Cycle Assistant - Professional Food Management System</title>
     <style>
         * {
             margin: 0;
@@ -12,177 +12,210 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 50%, #2dd4bf 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
         }
 
         .page {
             display: none;
+            min-height: 100vh;
         }
 
         .page.active {
-            display: block;
+            display: flex;
         }
 
-        /* Landing Page */
-        .landing-page {
-            text-align: center;
-            padding: 60px 40px;
+        /* Login Page - Professional Design */
+        .login-page {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            overflow: hidden;
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .login-left {
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
             color: white;
-            min-height: 100vh;
+            padding: 60px 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
         }
 
-        .landing-page h1 {
-            font-size: 3.5em;
+        .login-left h1 {
+            font-size: 2.5em;
             margin-bottom: 20px;
-            animation: fadeInDown 1s ease;
+            font-weight: 700;
         }
 
-        .landing-page .subtitle {
-            font-size: 1.5em;
-            margin-bottom: 40px;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease;
-        }
-
-        .landing-page .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-            max-width: 1000px;
-        }
-
-        .feature-card {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid rgba(255,255,255,0.3);
-            animation: fadeIn 1s ease;
-        }
-
-        .feature-card .icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3em;
-            margin-bottom: 10px;
-        }
-
-        .landing-buttons {
-            margin-top: 40px;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Auth Container */
-        .auth-container {
-            max-width: 450px;
-            margin: 50px auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            padding: 40px;
-        }
-
-        .auth-header {
-            text-align: center;
+        .login-left p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            opacity: 0.95;
             margin-bottom: 30px;
         }
 
-        .auth-header h2 {
-            color: #11998e;
-            font-size: 2em;
-            margin-bottom: 10px;
+        .feature-list {
+            list-style: none;
+            margin-top: 30px;
         }
 
-        .auth-header p {
-            color: #666;
+        .feature-list li {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05em;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            background: rgba(255,255,255,0.2);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .login-right {
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-header {
+            margin-bottom: 40px;
+        }
+
+        .login-header h2 {
+            color: #0f766e;
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .login-header p {
+            color: #64748b;
+            font-size: 1em;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-group label {
             display: block;
-            color: #333;
-            margin-bottom: 8px;
-            font-weight: 500;
+            color: #334155;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 0.95em;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
             font-size: 1em;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            background: #f8fafc;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #11998e;
+            border-color: #14b8a6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
         }
 
         .btn {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 1em;
+            padding: 16px 32px;
+            border-radius: 10px;
+            font-size: 1.05em;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s;
             width: 100%;
             margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
+            box-shadow: 0 8px 20px rgba(20, 184, 166, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
         }
 
         .btn-secondary {
-            background: #6c757d;
+            background: #64748b;
+            box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 20px rgba(100, 116, 139, 0.4);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            color: #94a3b8;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
         }
 
         .auth-footer {
             text-align: center;
-            margin-top: 20px;
-            color: #666;
+            margin-top: 25px;
+            color: #64748b;
+            font-size: 0.95em;
         }
 
         .auth-footer a {
-            color: #11998e;
+            color: #0f766e;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
         }
 
@@ -190,90 +223,126 @@
             text-decoration: underline;
         }
 
-        /* Main App Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Register Page */
+        .register-container {
+            max-width: 550px;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            padding: 50px;
         }
 
-        .header {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            color: white;
-            padding: 30px;
+        /* Main App */
+        .main-app {
+            width: 100%;
+            background: #f1f5f9;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
         }
 
-        .header-left h1 {
-            font-size: 2em;
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #0f766e;
+        }
+
+        .navbar-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .user-badge {
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .header-right {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            padding: 10px 20px;
+            background: #f0fdfa;
+            border-radius: 25px;
+            color: #0f766e;
+            font-weight: 600;
         }
 
         .btn-small {
-            padding: 8px 20px;
-            font-size: 0.9em;
+            padding: 10px 24px;
+            font-size: 0.95em;
             width: auto;
         }
 
         .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
             padding: 40px;
         }
 
-        .upload-section {
-            background: #f0fdf4;
-            border: 3px dashed #11998e;
-            border-radius: 10px;
-            padding: 40px;
+        .content-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
+        }
+
+        .content-header h1 {
+            color: #0f172a;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .content-header p {
+            color: #64748b;
+            font-size: 1.2em;
+        }
+
+        .upload-card {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 3px dashed #cbd5e1;
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        .upload-section:hover {
-            background: #dcfce7;
-            border-color: #38ef7d;
+        .upload-card:hover {
+            border-color: #14b8a6;
+            background: #f0fdfa;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(20, 184, 166, 0.15);
         }
 
-        .upload-section.dragover {
-            background: #bbf7d0;
-            border-color: #22c55e;
+        .upload-card.dragover {
+            border-color: #0f766e;
+            background: #ccfbf1;
             transform: scale(1.02);
         }
 
         .upload-icon {
-            font-size: 4em;
-            margin-bottom: 20px;
+            font-size: 5em;
+            margin-bottom: 25px;
         }
 
-        .upload-section h2 {
-            color: #333;
-            margin-bottom: 10px;
+        .upload-card h2 {
+            color: #0f172a;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            font-weight: 700;
         }
 
-        .upload-section p {
-            color: #666;
-            margin-bottom: 20px;
+        .upload-card p {
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 1.1em;
         }
 
         #fileInput {
@@ -282,37 +351,54 @@
 
         .preview-section {
             display: none;
-            margin-bottom: 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
         }
 
         .preview-image {
             width: 100%;
-            max-width: 500px;
-            border-radius: 10px;
-            margin: 20px auto;
+            max-width: 600px;
+            border-radius: 15px;
+            margin: 0 auto 30px;
             display: block;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
         }
 
-        .results-grid {
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .results-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
         }
 
         .result-card {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            animation: slideIn 0.5s ease;
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            animation: slideUp 0.5s ease;
         }
 
-        @keyframes slideIn {
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        }
+
+        @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -321,52 +407,55 @@
         }
 
         .result-card h3 {
-            color: #333;
-            margin-bottom: 15px;
+            color: #0f172a;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.3em;
+            gap: 12px;
+            font-size: 1.4em;
+            font-weight: 700;
         }
 
         .result-card .icon {
-            font-size: 1.5em;
+            font-size: 1.6em;
         }
 
         .freshness-indicator {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin: 10px 0;
+            gap: 15px;
+            margin: 15px 0;
         }
 
         .freshness-bar {
             flex: 1;
-            height: 20px;
-            background: #e0e0e0;
-            border-radius: 10px;
+            height: 24px;
+            background: #e2e8f0;
+            border-radius: 12px;
             overflow: hidden;
         }
 
         .freshness-fill {
             height: 100%;
-            transition: width 1s ease;
+            transition: width 1.5s ease;
+            border-radius: 12px;
         }
 
-        .fresh { background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%); }
-        .moderate { background: linear-gradient(90deg, #f2994a 0%, #f2c94c 100%); }
-        .spoiled { background: linear-gradient(90deg, #eb3349 0%, #f45c43 100%); }
+        .fresh { background: linear-gradient(90deg, #0f766e 0%, #14b8a6 100%); }
+        .moderate { background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%); }
+        .spoiled { background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%); }
 
         .nutrition-table {
             width: 100%;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .nutrition-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 1.05em;
         }
 
         .nutrition-row:last-child {
@@ -374,40 +463,45 @@
         }
 
         .shelf-life-timeline {
-            margin-top: 15px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
         }
 
         .timeline-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin: 10px 0;
+            gap: 15px;
+            margin: 15px 0;
+            font-size: 1.05em;
         }
 
         .timeline-dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            background: #11998e;
+            background: #14b8a6;
+            flex-shrink: 0;
         }
 
         .loading {
             display: none;
             text-align: center;
-            padding: 40px;
+            padding: 60px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #11998e;
+            border: 5px solid #f1f5f9;
+            border-top: 5px solid #14b8a6;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            margin: 0 auto 25px;
         }
 
         @keyframes spin {
@@ -417,59 +511,56 @@
 
         .tag {
             display: inline-block;
-            padding: 5px 12px;
-            border-radius: 15px;
+            padding: 6px 16px;
+            border-radius: 20px;
             font-size: 0.9em;
             margin: 5px 5px 5px 0;
+            font-weight: 600;
         }
 
-        .tag-primary { background: #dcfce7; color: #166534; }
-        .tag-success { background: #d4edda; color: #155724; }
-        .tag-warning { background: #fff3cd; color: #856404; }
-        .tag-danger { background: #f8d7da; color: #721c24; }
-
-        .info-text {
-            color: #666;
-            font-size: 0.95em;
-            line-height: 1.6;
-        }
+        .tag-primary { background: #ccfbf1; color: #0f766e; }
+        .tag-success { background: #d1fae5; color: #065f46; }
+        .tag-warning { background: #fef3c7; color: #92400e; }
 
         /* Chat Assistant */
         .chat-button {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
             color: white;
             border: none;
-            font-size: 1.8em;
+            font-size: 2em;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(17, 153, 142, 0.4);
-            transition: transform 0.3s;
+            box-shadow: 0 8px 25px rgba(20, 184, 166, 0.4);
+            transition: all 0.3s;
             z-index: 1000;
             display: none;
         }
 
         .chat-button.show {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .chat-button:hover {
             transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(20, 184, 166, 0.5);
         }
 
         .chat-window {
             position: fixed;
-            bottom: 100px;
+            bottom: 110px;
             right: 30px;
-            width: 380px;
-            height: 500px;
+            width: 400px;
+            height: 550px;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
             display: none;
             flex-direction: column;
             z-index: 1000;
@@ -480,37 +571,54 @@
         }
 
         .chat-header {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
             color: white;
-            padding: 20px;
-            border-radius: 15px 15px 0 0;
+            padding: 25px;
+            border-radius: 20px 20px 0 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .chat-header h3 {
-            font-size: 1.2em;
+            font-size: 1.3em;
+            font-weight: 700;
         }
 
         .chat-close {
-            background: none;
+            background: rgba(255,255,255,0.2);
             border: none;
             color: white;
             font-size: 1.5em;
             cursor: pointer;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .chat-close:hover {
+            background: rgba(255,255,255,0.3);
         }
 
         .chat-messages {
             flex: 1;
-            padding: 20px;
+            padding: 25px;
             overflow-y: auto;
-            background: #f8f9fa;
+            background: #f8fafc;
         }
 
         .chat-message {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .chat-message.bot {
@@ -523,203 +631,199 @@
 
         .message-bubble {
             display: inline-block;
-            padding: 12px 18px;
+            padding: 14px 20px;
             border-radius: 18px;
             max-width: 80%;
             word-wrap: break-word;
+            font-size: 0.98em;
+            line-height: 1.5;
         }
 
         .chat-message.bot .message-bubble {
-            background: #e9ecef;
-            color: #333;
+            background: white;
+            color: #334155;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .chat-message.user .message-bubble {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
             color: white;
         }
 
         .chat-input-area {
-            padding: 15px;
-            border-top: 1px solid #e0e0e0;
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            background: white;
+            border-radius: 0 0 20px 20px;
         }
 
         .chat-input {
             flex: 1;
-            padding: 10px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 20px;
+            padding: 12px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
             font-size: 0.95em;
+            transition: all 0.3s;
         }
 
         .chat-input:focus {
             outline: none;
-            border-color: #11998e;
+            border-color: #14b8a6;
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
         }
 
         .chat-send {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 12px 24px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
         }
 
-        @media (max-width: 768px) {
-            .landing-page h1 {
-                font-size: 2.5em;
+        .chat-send:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+        }
+
+        @media (max-width: 968px) {
+            .login-container {
+                grid-template-columns: 1fr;
             }
             
-            .header-left h1 {
-                font-size: 1.5em;
+            .login-left {
+                display: none;
             }
-            
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
             .main-content {
                 padding: 20px;
             }
-            
-            .results-grid {
+
+            .upload-card {
+                padding: 40px 20px;
+            }
+
+            .results-section {
                 grid-template-columns: 1fr;
             }
 
             .chat-window {
                 width: calc(100% - 40px);
                 right: 20px;
-                bottom: 90px;
-            }
-
-            .landing-buttons {
-                flex-direction: column;
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .btn {
-                width: 100%;
+                bottom: 100px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Landing Page -->
-    <div id="landingPage" class="page active">
-        <div class="landing-page">
-            <h1>🍎 Food Cycle Assistant 🥗</h1>
-            <p class="subtitle">AI-Powered Food Analysis & Shelf Life Prediction</p>
-            
-            <div class="features">
-                <div class="feature-card">
-                    <div class="icon">🌿</div>
-                    <h3>Freshness Detection</h3>
-                    <p>Analyze food freshness with AI-powered visual inspection</p>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-page">
+            <div class="login-container">
+                <div class="login-left">
+                    <h1>🍎 Food Cycle Assistant</h1>
+                    <p>Professional AI-powered food management system for freshness detection, nutritional analysis, and intelligent shelf life prediction.</p>
+                    <ul class="feature-list">
+                        <li>Advanced Freshness Detection</li>
+                        <li>Intelligent Dish Classification</li>
+                        <li>Comprehensive Nutrition Analysis</li>
+                        <li>Predictive Shelf Life Modeling</li>
+                        <li>24/7 AI Assistant Support</li>
+                    </ul>
                 </div>
-                <div class="feature-card">
-                    <div class="icon">🍽️</div>
-                    <h3>Dish Classification</h3>
-                    <p>Identify dishes and ingredients automatically</p>
+                <div class="login-right">
+                    <div class="login-header">
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to access your food management dashboard</p>
+                    </div>
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="loginEmail" placeholder="Enter your email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn">Sign In</button>
+                    </form>
+                    <div class="auth-footer">
+                        Don't have an account? <a onclick="showPage('register')">Create Account</a>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="icon">📊</div>
-                    <h3>Nutrition Analysis</h3>
-                    <p>Get detailed nutritional information instantly</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon">⏰</div>
-                    <h3>Shelf Life Prediction</h3>
-                    <p>Know exactly how long your food will last</p>
-                </div>
-            </div>
-
-            <div class="landing-buttons">
-                <button class="btn" onclick="showPage('login')">Login</button>
-                <button class="btn" onclick="showPage('register')">Register</button>
             </div>
         </div>
     </div>
 
     <!-- Register Page -->
     <div id="registerPage" class="page">
-        <div class="auth-container">
-            <div class="auth-header">
-                <h2>Create Account</h2>
-                <p>Join Food Cycle Assistant today</p>
-            </div>
-            <form onsubmit="handleRegister(event)">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="regName" placeholder="Enter your full name" required>
+        <div class="login-page">
+            <div class="register-container">
+                <div class="login-header">
+                    <h2>Create Account</h2>
+                    <p>Join Food Cycle Assistant and start managing your food intelligently</p>
                 </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="regEmail" placeholder="Enter your email" required>
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="regName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="regEmail" placeholder="Enter your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" placeholder="Create a strong password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="regConfirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="btn">Create Account</button>
+                </form>
+                <div class="auth-footer">
+                    Already have an account? <a onclick="showPage('login')">Sign In</a>
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="regPassword" placeholder="Create a password" required>
-                </div>
-                <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" id="regConfirmPassword" placeholder="Confirm your password" required>
-                </div>
-                <button type="submit" class="btn">Register</button>
-            </form>
-            <div class="auth-footer">
-                Already have an account? <a onclick="showPage('login')">Login here</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Login Page -->
-    <div id="loginPage" class="page">
-        <div class="auth-container">
-            <div class="auth-header">
-                <h2>Welcome Back</h2>
-                <p>Login to your account</p>
-            </div>
-            <form onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="btn">Login</button>
-            </form>
-            <div class="auth-footer">
-                Don't have an account? <a onclick="showPage('register')">Register here</a>
             </div>
         </div>
     </div>
 
     <!-- Main App -->
     <div id="mainApp" class="page">
-        <div class="container">
-            <div class="header">
-                <div class="header-left">
-                    <h1>
-                        <span>🍎</span>
-                        Food Cycle Assistant
-                    </h1>
+        <div class="main-app">
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <span>🍎</span>
+                    Food Cycle Assistant
                 </div>
-                <div class="header-right">
-                    <div class="user-info">
-                        <span>👤 <span id="userName">User</span></span>
+                <div class="navbar-right">
+                    <div class="user-badge">
+                        <span>👤</span>
+                        <span id="userName">User</span>
                     </div>
                     <button class="btn btn-small btn-secondary" onclick="handleLogout()">Logout</button>
                 </div>
-            </div>
+            </nav>
 
             <div class="main-content">
-                <div class="upload-section" id="uploadSection">
+                <div class="content-header">
+                    <h1>Food Analysis Dashboard</h1>
+                    <p>Upload food images for instant AI-powered analysis and insights</p>
+                </div>
+
+                <div class="upload-card" id="uploadCard">
                     <div class="upload-icon">📸</div>
                     <h2>Upload Food Image</h2>
-                    <p>Drag & drop an image here or click to browse</p>
+                    <p>Drag and drop your image here, or click to browse</p>
                     <input type="file" id="fileInput" accept="image/*">
                     <button class="btn" onclick="document.getElementById('fileInput').click()">
                         Choose Image
@@ -728,17 +832,16 @@
 
                 <div class="preview-section" id="previewSection">
                     <img id="previewImage" class="preview-image" alt="Food preview">
-                    <div style="text-align: center; margin-top: 20px;">
+                    <div class="action-buttons">
                         <button class="btn" onclick="analyzeFood()">🔍 Analyze Food</button>
-                        <button class="btn btn-secondary" onclick="resetApp()" style="margin-left: 10px;">
-                            🔄 Upload New Image
-                        </button>
+                        <button class="btn btn-secondary" onclick="resetApp()">🔄 Upload New Image</button>
                     </div>
                 </div>
 
                 <div class="loading" id="loading">
                     <div class="spinner"></div>
-                    <p>Analyzing your food image...</p>
+                    <h3 style="color: #0f766e; margin-bottom: 10px;">Analyzing Your Food...</h3>
+                    <p style="color: #64748b;">Our AI is processing the image and generating insights</p>
                 </div>
 
                 <div id="results"></div>
@@ -751,13 +854,13 @@
     
     <div class="chat-window" id="chatWindow">
         <div class="chat-header">
-            <h3>🤖 Food Assistant</h3>
+            <h3>🤖 AI Food Assistant</h3>
             <button class="chat-close" onclick="toggleChat()">×</button>
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="chat-message bot">
                 <div class="message-bubble">
-                    Hi! I'm your Food Cycle Assistant. Ask me anything about food storage, nutrition, or recipes! 🍎
+                    Hello! I'm your AI Food Assistant. I can help you with food storage tips, nutrition advice, recipes, and shelf life information. How can I assist you today? 🍎
                 </div>
             </div>
         </div>
@@ -773,18 +876,32 @@
         function showPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             
-            if (page === 'landing') {
-                document.getElementById('landingPage').classList.add('active');
+            if (page === 'login') {
+                document.getElementById('loginPage').classList.add('active');
                 document.getElementById('chatButton').classList.remove('show');
             } else if (page === 'register') {
                 document.getElementById('registerPage').classList.add('active');
                 document.getElementById('chatButton').classList.remove('show');
-            } else if (page === 'login') {
-                document.getElementById('loginPage').classList.add('active');
-                document.getElementById('chatButton').classList.remove('show');
             } else if (page === 'main') {
                 document.getElementById('mainApp').classList.add('active');
                 document.getElementById('chatButton').classList.add('show');
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (storedUser.email === email) {
+                currentUser = storedUser;
+                document.getElementById('userName').textContent = currentUser.name;
+                showPage('main');
+            } else {
+                alert('Account not found. Please create an account first.');
+                showPage('register');
             }
         }
 
@@ -800,54 +917,46 @@
                 return;
             }
 
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long.');
+                return;
+            }
+
             localStorage.setItem('user', JSON.stringify({ name, email }));
             currentUser = { name, email };
             
-            alert('Registration successful! Please login.');
-            showPage('login');
-        }
-
-        function handleLogin(event) {
-            event.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
-            
-            if (storedUser.email === email) {
-                currentUser = storedUser;
-                document.getElementById('userName').textContent = currentUser.name;
-                showPage('main');
-            } else {
-                alert('Invalid credentials! Please register first.');
-            }
+            alert('Account created successfully! Redirecting to dashboard...');
+            document.getElementById('userName').textContent = currentUser.name;
+            showPage('main');
         }
 
         function handleLogout() {
-            currentUser = null;
-            resetApp();
-            showPage('landing');
+            if (confirm('Are you sure you want to logout?')) {
+                currentUser = null;
+                resetApp();
+                showPage('login');
+            }
         }
 
-        const uploadSection = document.getElementById('uploadSection');
+        const uploadCard = document.getElementById('uploadCard');
         const fileInput = document.getElementById('fileInput');
         const previewSection = document.getElementById('previewSection');
         const previewImage = document.getElementById('previewImage');
         const loading = document.getElementById('loading');
         const results = document.getElementById('results');
 
-        uploadSection.addEventListener('dragover', (e) => {
+        uploadCard.addEventListener('dragover', (e) => {
             e.preventDefault();
-            uploadSection.classList.add('dragover');
+            uploadCard.classList.add('dragover');
         });
 
-        uploadSection.addEventListener('dragleave', () => {
-            uploadSection.classList.remove('dragover');
+        uploadCard.addEventListener('dragleave', () => {
+            uploadCard.classList.remove('dragover');
         });
 
-        uploadSection.addEventListener('drop', (e) => {
+        uploadCard.addEventListener('drop', (e) => {
             e.preventDefault();
-            uploadSection.classList.remove('dragover');
+            uploadCard.classList.remove('dragover');
             const file = e.dataTransfer.files[0];
             if (file && file.type.startsWith('image/')) {
                 handleImageUpload(file);
@@ -865,7 +974,7 @@
             const reader = new FileReader();
             reader.onload = (e) => {
                 previewImage.src = e.target.result;
-                uploadSection.style.display = 'none';
+                uploadCard.style.display = 'none';
                 previewSection.style.display = 'block';
                 results.innerHTML = '';
             };
@@ -875,50 +984,48 @@
         function analyzeFood() {
             loading.style.display = 'block';
             results.innerHTML = '';
+            previewSection.style.display = 'none';
 
             setTimeout(() => {
                 loading.style.display = 'none';
+                previewSection.style.display = 'block';
                 displayResults();
-            }, 2000);
+            }, 2500);
         }
 
         function displayResults() {
             const analysisData = {
-                freshness: {
-                    score: 85,
-                    status: 'Fresh',
-                    color: 'fresh'
-                },
+                freshness: { score: 87, status: 'Fresh', color: 'fresh' },
                 classification: {
                     dish: 'Fresh Garden Salad',
                     category: 'Vegetables',
-                    confidence: 92,
-                    ingredients: ['Lettuce', 'Tomatoes', 'Cucumbers', 'Carrots', 'Bell Peppers']
+                    confidence: 94,
+                    ingredients: ['Lettuce', 'Tomatoes', 'Cucumbers', 'Carrots', 'Bell Peppers', 'Onions']
                 },
                 nutrition: {
-                    calories: 150,
-                    protein: '5g',
-                    carbs: '20g',
-                    fat: '8g',
-                    fiber: '6g',
-                    vitamins: ['Vitamin A', 'Vitamin C', 'Vitamin K']
+                    calories: 145,
+                    protein: '5.2g',
+                    carbs: '18.5g',
+                    fat: '7.8g',
+                    fiber: '6.3g',
+                    vitamins: ['Vitamin A', 'Vitamin C', 'Vitamin K', 'Folate']
                 },
                 shelfLife: {
-                    current: 'Day 1',
-                    optimal: '3-5 days',
-                    refrigerated: '5-7 days',
-                    frozen: 'Not recommended',
+                    current: 'Day 1 - Peak Freshness',
+                    optimal: '3-5 days (refrigerated)',
+                    refrigerated: '5-7 days (sealed container)',
                     tips: [
-                        'Store in airtight container',
-                        'Keep refrigerated at 35-40°F',
-                        'Consume within 3 days for best quality',
-                        'Keep dressing separate until serving'
+                        'Store in airtight container immediately',
+                        'Keep refrigerated at 35-40°F (2-4°C)',
+                        'Consume within 3 days for optimal quality',
+                        'Keep dressing separate until serving',
+                        'Avoid washing until ready to eat'
                     ]
                 }
             };
 
             const resultsHTML = `
-                <div class="results-grid">
+                <div class="results-section">
                     <div class="result-card">
                         <h3><span class="icon">🌿</span> Freshness Analysis</h3>
                         <div class="freshness-indicator">
@@ -926,26 +1033,26 @@
                                 <div class="freshness-fill ${analysisData.freshness.color}" 
                                      style="width: ${analysisData.freshness.score}%"></div>
                             </div>
-                            <strong>${analysisData.freshness.score}%</strong>
+                            <strong style="color: #0f766e; font-size: 1.2em;">${analysisData.freshness.score}%</strong>
                         </div>
                         <p style="margin-top: 15px;">
                             <span class="tag tag-success">✓ ${analysisData.freshness.status}</span>
                         </p>
-                        <p class="info-text" style="margin-top: 10px;">
-                            Your food appears to be in excellent condition with vibrant colors and no visible signs of spoilage.
+                        <p style="margin-top: 15px; color: #64748b; line-height: 1.6;">
+                            Your food appears to be in excellent condition with vibrant colors, firm texture, and no visible signs of spoilage or deterioration.
                         </p>
                     </div>
 
                     <div class="result-card">
                         <h3><span class="icon">🍽️</span> Dish Classification</h3>
-                        <h4 style="color: #11998e; margin: 10px 0;">${analysisData.classification.dish}</h4>
+                        <h4 style="color: #0f766e; margin: 15px 0; font-size: 1.3em;">${analysisData.classification.dish}</h4>
                         <p>
                             <span class="tag tag-primary">${analysisData.classification.category}</span>
                             <span class="tag tag-primary">${analysisData.classification.confidence}% Confidence</span>
                         </p>
-                        <div style="margin-top: 15px;">
-                            <strong>Detected Ingredients:</strong>
-                            <div style="margin-top: 8px;">
+                        <div style="margin-top: 20px;">
+                            <strong style="color: #0f172a;">Detected Ingredients:</strong>
+                            <div style="margin-top: 12px;">
                                 ${analysisData.classification.ingredients.map(ing => 
                                     `<span class="tag tag-primary">${ing}</span>`
                                 ).join('')}
@@ -958,7 +1065,7 @@
                         <div class="nutrition-table">
                             <div class="nutrition-row">
                                 <span><strong>Calories</strong></span>
-                                <span>${analysisData.nutrition.calories} kcal</span>
+                                <span style="color: #0f766e; font-weight: 600;">${analysisData.nutrition.calories} kcal</span>
                             </div>
                             <div class="nutrition-row">
                                 <span>Protein</span>
@@ -973,13 +1080,13 @@
                                 <span>${analysisData.nutrition.fat}</span>
                             </div>
                             <div class="nutrition-row">
-                                <span>Fiber</span>
+                                <span>Dietary Fiber</span>
                                 <span>${analysisData.nutrition.fiber}</span>
                             </div>
                         </div>
-                        <div style="margin-top: 15px;">
-                            <strong>Key Vitamins:</strong>
-                            <div style="margin-top: 8px;">
+                        <div style="margin-top: 20px;">
+                            <strong style="color: #0f172a;">Key Vitamins & Minerals:</strong>
+                            <div style="margin-top: 12px;">
                                 ${analysisData.nutrition.vitamins.map(vit => 
                                     `<span class="tag tag-success">${vit}</span>`
                                 ).join('')}
@@ -991,29 +1098,32 @@
                         <h3><span class="icon">⏰</span> Shelf Life Prediction</h3>
                         <div class="shelf-life-timeline">
                             <div class="timeline-item">
-                                <div class="timeline-dot" style="background: #38ef7d;"></div>
+                                <div class="timeline-dot" style="background: #14b8a6;"></div>
                                 <div>
-                                    <strong>Current Status:</strong> ${analysisData.shelfLife.current}
+                                    <strong style="color: #0f172a;">Current Status:</strong><br>
+                                    <span style="color: #64748b;">${analysisData.shelfLife.current}</span>
                                 </div>
                             </div>
                             <div class="timeline-item">
-                                <div class="timeline-dot" style="background: #f2c94c;"></div>
+                                <div class="timeline-dot" style="background: #fbbf24;"></div>
                                 <div>
-                                    <strong>Optimal Freshness:</strong> ${analysisData.shelfLife.optimal}
+                                    <strong style="color: #0f172a;">Optimal Freshness:</strong><br>
+                                    <span style="color: #64748b;">${analysisData.shelfLife.optimal}</span>
                                 </div>
                             </div>
                             <div class="timeline-item">
-                                <div class="timeline-dot" style="background: #11998e;"></div>
+                                <div class="timeline-dot" style="background: #0f766e;"></div>
                                 <div>
-                                    <strong>Refrigerated:</strong> ${analysisData.shelfLife.refrigerated}
+                                    <strong style="color: #0f172a;">Maximum Storage:</strong><br>
+                                    <span style="color: #64748b;">${analysisData.shelfLife.refrigerated}</span>
                                 </div>
                             </div>
                         </div>
-                        <div style="margin-top: 20px;">
-                            <strong>Storage Tips:</strong>
-                            <ul style="margin-top: 10px; padding-left: 20px;">
+                        <div style="margin-top: 25px;">
+                            <strong style="color: #0f172a;">Storage Recommendations:</strong>
+                            <ul style="margin-top: 12px; padding-left: 20px; color: #64748b; line-height: 1.8;">
                                 ${analysisData.shelfLife.tips.map(tip => 
-                                    `<li class="info-text" style="margin: 5px 0;">${tip}</li>`
+                                    `<li style="margin: 8px 0;">${tip}</li>`
                                 ).join('')}
                             </ul>
                         </div>
@@ -1025,7 +1135,7 @@
         }
 
         function resetApp() {
-            uploadSection.style.display = 'block';
+            uploadCard.style.display = 'block';
             previewSection.style.display = 'none';
             results.innerHTML = '';
             fileInput.value = '';
@@ -1047,7 +1157,7 @@
                 setTimeout(() => {
                     const response = getBotResponse(message);
                     addMessage(response, 'bot');
-                }, 500);
+                }, 600);
             }
         }
 
@@ -1070,21 +1180,23 @@
             const lowerMessage = message.toLowerCase();
             
             if (lowerMessage.includes('storage') || lowerMessage.includes('store')) {
-                return 'For optimal storage, keep vegetables in the crisper drawer, fruits at room temperature until ripe, and dairy products on the middle shelf. Always check expiration dates! 🥬';
+                return 'For optimal storage: Keep vegetables in the crisper drawer at 35-40°F, store fruits at room temperature until ripe, and place dairy products on middle shelves. Always check expiration dates and use airtight containers. 🥬';
             } else if (lowerMessage.includes('nutrition') || lowerMessage.includes('healthy')) {
-                return 'A balanced diet includes fruits, vegetables, whole grains, lean proteins, and healthy fats. Aim for colorful plates! 🌈';
+                return 'A balanced diet includes: 5+ servings of fruits & vegetables daily, whole grains, lean proteins, healthy fats (nuts, avocado, olive oil), and adequate hydration. Aim for colorful, diverse plates! 🌈';
             } else if (lowerMessage.includes('recipe') || lowerMessage.includes('cook')) {
-                return 'I can help with recipes! Try a simple salad: mix greens, cherry tomatoes, cucumbers, olive oil, and lemon juice. Delicious and healthy! 🥗';
-            } else if (lowerMessage.includes('shelf life') || lowerMessage.includes('last')) {
-                return 'Shelf life varies by food type. Leafy greens last 3-5 days, root vegetables 1-2 weeks, and most fruits 5-7 days when stored properly. 📅';
-            } else if (lowerMessage.includes('fresh') || lowerMessage.includes('spoiled')) {
-                return 'Check for freshness by looking at color, texture, and smell. Wilted leaves, soft spots, or off odors indicate spoilage. 👃';
+                return 'Try this healthy salad: Mix fresh greens, cherry tomatoes, cucumbers, bell peppers, chickpeas, and feta. Dress with olive oil, lemon juice, salt, and pepper. Add grilled chicken for extra protein! 🥗';
+            } else if (lowerMessage.includes('shelf life') || lowerMessage.includes('last') || lowerMessage.includes('expire')) {
+                return 'Typical shelf life: Leafy greens (3-5 days), root vegetables (1-2 weeks), most fruits (5-7 days), dairy (check date), cooked meals (3-4 days). Always refrigerate perishables promptly! 📅';
+            } else if (lowerMessage.includes('fresh') || lowerMessage.includes('spoiled') || lowerMessage.includes('bad')) {
+                return 'Check freshness by: Visual inspection (color, mold), texture (firmness, sliminess), smell (off odors), and expiration dates. When in doubt, throw it out! Safety first. 👃';
+            } else if (lowerMessage.includes('vitamin') || lowerMessage.includes('nutrient')) {
+                return 'Key nutrients: Vitamin A (carrots, sweet potatoes), Vitamin C (citrus, peppers), Vitamin K (leafy greens), Iron (spinach, beans), Calcium (dairy, broccoli), Omega-3 (fish, walnuts). 💊';
             } else {
-                return 'I can help you with food storage tips, nutrition advice, recipes, and shelf life information. What would you like to know? 😊';
+                return 'I can help you with: food storage tips, nutrition advice, healthy recipes, shelf life information, freshness checks, and dietary guidance. What would you like to know? 😊';
             }
         }
 
-        showPage('landing');
+        showPage('login');
     </script>
 </body>
 </html>

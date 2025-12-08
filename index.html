@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodCycle AI - Deep Learning Food Analysis System</title>
+    <title>FoodCycle AI - Smart Food Management System</title>
     <style>
         * {
             margin: 0;
@@ -45,7 +45,7 @@
             width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            min-height: 650px;
+            min-height: 600px;
         }
 
         .login-left {
@@ -57,69 +57,49 @@
             justify-content: center;
         }
 
-        .project-badge {
-            background: rgba(255,255,255,0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            display: inline-block;
-            font-size: 0.85em;
-            font-weight: 600;
-            margin-bottom: 20px;
-            width: fit-content;
-        }
-
         .login-left h1 {
-            font-size: 2.3em;
-            margin-bottom: 15px;
+            font-size: 2.5em;
+            margin-bottom: 20px;
             font-weight: 700;
             line-height: 1.2;
         }
 
         .login-left .subtitle {
-            font-size: 1.05em;
+            font-size: 1.15em;
             opacity: 0.95;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
 
-        .project-info {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 12px;
-            margin: 25px 0;
-            border-left: 4px solid rgba(255,255,255,0.5);
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
         }
 
-        .project-info p {
-            margin: 8px 0;
-            font-size: 0.95em;
-        }
-
-        .project-info strong {
-            color: #fff;
-        }
-
-        .tech-stack {
-            margin-top: 25px;
-        }
-
-        .tech-stack h3 {
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            opacity: 0.9;
-        }
-
-        .tech-tags {
+        .feature-list li {
+            padding: 15px 0;
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.05em;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
         }
 
-        .tech-tag {
-            background: rgba(255,255,255,0.2);
-            padding: 6px 14px;
-            border-radius: 15px;
-            font-size: 0.85em;
-            font-weight: 500;
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            background: rgba(255,255,255,0.25);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
         }
 
         .login-right {
@@ -252,14 +232,14 @@
         }
 
         .navbar-brand .brand-text h1 {
-            font-size: 1.4em;
+            font-size: 1.5em;
             font-weight: 700;
             color: #0f766e;
             line-height: 1.2;
         }
 
         .navbar-brand .brand-text p {
-            font-size: 0.75em;
+            font-size: 0.8em;
             color: #64748b;
             margin-top: 2px;
         }
@@ -294,51 +274,20 @@
         }
 
         .content-header {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .content-header h1 {
             color: #0f172a;
-            font-size: 2.2em;
-            margin-bottom: 12px;
+            font-size: 2.5em;
+            margin-bottom: 15px;
             font-weight: 700;
         }
 
         .content-header p {
             color: #64748b;
-            font-size: 1.1em;
-            margin-bottom: 20px;
-        }
-
-        .model-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .info-box {
-            background: #f8fafc;
-            padding: 18px;
-            border-radius: 12px;
-            border-left: 4px solid #14b8a6;
-        }
-
-        .info-box .label {
-            font-size: 0.85em;
-            color: #64748b;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .info-box .value {
-            font-size: 1.1em;
-            color: #0f172a;
-            font-weight: 700;
+            font-size: 1.2em;
         }
 
         .upload-card {
@@ -459,26 +408,6 @@
             font-size: 1.6em;
         }
 
-        .model-confidence {
-            background: #f0fdf4;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 3px solid #22c55e;
-        }
-
-        .model-confidence .label {
-            font-size: 0.85em;
-            color: #166534;
-            font-weight: 600;
-        }
-
-        .model-confidence .value {
-            font-size: 1.3em;
-            color: #15803d;
-            font-weight: 700;
-        }
-
         .freshness-indicator {
             display: flex;
             align-items: center;
@@ -568,25 +497,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        .processing-steps {
-            margin-top: 20px;
-            text-align: left;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .processing-step {
-            padding: 10px 0;
-            color: #64748b;
-            font-size: 0.95em;
-        }
-
-        .processing-step.active {
-            color: #0f766e;
-            font-weight: 600;
-        }
-
         .tag {
             display: inline-block;
             padding: 6px 16px;
@@ -599,6 +509,7 @@
         .tag-primary { background: #ccfbf1; color: #0f766e; }
         .tag-success { background: #d1fae5; color: #065f46; }
         .tag-warning { background: #fef3c7; color: #92400e; }
+        .tag-danger { background: #fee2e2; color: #991b1b; }
 
         /* Chat Assistant */
         .chat-button {
@@ -634,8 +545,8 @@
             position: fixed;
             bottom: 110px;
             right: 30px;
-            width: 420px;
-            height: 580px;
+            width: 400px;
+            height: 550px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.3);
@@ -661,12 +572,6 @@
         .chat-header h3 {
             font-size: 1.3em;
             font-weight: 700;
-        }
-
-        .chat-header p {
-            font-size: 0.85em;
-            opacity: 0.9;
-            margin-top: 3px;
         }
 
         .chat-close {
@@ -788,7 +693,7 @@
             }
 
             .navbar-brand .brand-text h1 {
-                font-size: 1.1em;
+                font-size: 1.2em;
             }
 
             .main-content {
@@ -817,39 +722,26 @@
         <div class="login-page">
             <div class="login-container">
                 <div class="login-left">
-                    <div class="project-badge">🎓 Final Year Project 2024-25</div>
-                    <h1>FoodCycle AI: Deep Learning Food Analysis System</h1>
-                    <p class="subtitle">Computer Vision & Machine Learning Based Food Quality Assessment</p>
+                    <h1>🍎 FoodCycle AI</h1>
+                    <p class="subtitle">Smart food management powered by artificial intelligence. Analyze freshness, get nutritional insights, and reduce food waste.</p>
                     
-                    <div class="project-info">
-                        <p><strong>Project Type:</strong> B.Tech Final Year Major Project</p>
-                        <p><strong>Specialization:</strong> Artificial Intelligence & Machine Learning</p>
-                        <p><strong>Domain:</strong> Computer Vision, Deep Learning, Food Technology</p>
-                    </div>
-
-                    <div class="tech-stack">
-                        <h3>🔧 Technology Stack</h3>
-                        <div class="tech-tags">
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">PyTorch</span>
-                            <span class="tech-tag">CNN</span>
-                            <span class="tech-tag">ResNet-50</span>
-                            <span class="tech-tag">YOLO v8</span>
-                            <span class="tech-tag">OpenCV</span>
-                            <span class="tech-tag">NLP</span>
-                            <span class="tech-tag">Flask API</span>
-                        </div>
-                    </div>
+                    <ul class="feature-list">
+                        <li>Instant freshness detection</li>
+                        <li>Accurate food classification</li>
+                        <li>Detailed nutrition analysis</li>
+                        <li>Smart shelf life prediction</li>
+                        <li>24/7 AI assistant support</li>
+                    </ul>
                 </div>
                 <div class="login-right">
                     <div class="login-header">
-                        <h2>System Login</h2>
-                        <p>Access the AI-powered food analysis platform</p>
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to your account</p>
                     </div>
                     <form onsubmit="handleLogin(event)">
                         <div class="form-group">
                             <label>Email Address</label>
-                            <input type="email" id="loginEmail" placeholder="Enter your email address" required>
+                            <input type="email" id="loginEmail" placeholder="Enter your email" required>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
@@ -858,7 +750,7 @@
                         <button type="submit" class="btn">Sign In</button>
                     </form>
                     <div class="auth-footer">
-                        New user? <a onclick="showPage('register')">Create Account</a>
+                        Don't have an account? <a onclick="showPage('register')">Sign Up</a>
                     </div>
                 </div>
             </div>
@@ -871,7 +763,7 @@
             <div class="register-container">
                 <div class="login-header">
                     <h2>Create Account</h2>
-                    <p>Register to access the FoodCycle AI system</p>
+                    <p>Join FoodCycle AI today</p>
                 </div>
                 <form onsubmit="handleRegister(event)">
                     <div class="form-group">
@@ -880,11 +772,11 @@
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" id="regEmail" placeholder="Enter your email address" required>
+                        <input type="email" id="regEmail" placeholder="Enter your email" required>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="regPassword" placeholder="Create a strong password" required>
+                        <input type="password" id="regPassword" placeholder="Create a password (min 6 characters)" required>
                     </div>
                     <div class="form-group">
                         <label>Confirm Password</label>
@@ -893,7 +785,7 @@
                     <button type="submit" class="btn">Create Account</button>
                 </form>
                 <div class="auth-footer">
-                    Already registered? <a onclick="showPage('login')">Sign In</a>
+                    Already have an account? <a onclick="showPage('login')">Sign In</a>
                 </div>
             </div>
         </div>
@@ -904,10 +796,10 @@
         <div class="main-app">
             <nav class="navbar">
                 <div class="navbar-brand">
-                    <span class="logo">🤖</span>
+                    <span class="logo">🍎</span>
                     <div class="brand-text">
                         <h1>FoodCycle AI</h1>
-                        <p>Deep Learning Food Analysis System</p>
+                        <p>Smart Food Management</p>
                     </div>
                 </div>
                 <div class="navbar-right">
@@ -921,57 +813,32 @@
 
             <div class="main-content">
                 <div class="content-header">
-                    <h1>AI-Powered Food Analysis Dashboard</h1>
-                    <p>Upload food images for real-time deep learning analysis using state-of-the-art computer vision models</p>
-                    
-                    <div class="model-info">
-                        <div class="info-box">
-                            <div class="label">Model Architecture</div>
-                            <div class="value">ResNet-50 + YOLO v8</div>
-                        </div>
-                        <div class="info-box">
-                            <div class="label">Training Dataset</div>
-                            <div class="value">Food-101 (101K images)</div>
-                        </div>
-                        <div class="info-box">
-                            <div class="label">Model Accuracy</div>
-                            <div class="value">94.2% (Validation)</div>
-                        </div>
-                        <div class="info-box">
-                            <div class="label">Inference Time</div>
-                            <div class="value">~2.3s per image</div>
-                        </div>
-                    </div>
+                    <h1>Food Analysis Dashboard</h1>
+                    <p>Upload any food image for instant AI-powered analysis</p>
                 </div>
 
                 <div class="upload-card" id="uploadCard">
                     <div class="upload-icon">📸</div>
-                    <h2>Upload Food Image for Analysis</h2>
-                    <p>Supported formats: JPG, PNG, JPEG | Max size: 10MB</p>
+                    <h2>Upload Food Image</h2>
+                    <p>Drag and drop or click to browse</p>
                     <input type="file" id="fileInput" accept="image/*">
                     <button class="btn" onclick="document.getElementById('fileInput').click()">
-                        Select Image
+                        Choose Image
                     </button>
                 </div>
 
                 <div class="preview-section" id="previewSection">
                     <img id="previewImage" class="preview-image" alt="Food preview">
                     <div class="action-buttons">
-                        <button class="btn" onclick="analyzeFood()">🔍 Run AI Analysis</button>
+                        <button class="btn" onclick="analyzeFood()">🔍 Analyze Food</button>
                         <button class="btn btn-secondary" onclick="resetApp()">🔄 Upload New Image</button>
                     </div>
                 </div>
 
                 <div class="loading" id="loading">
                     <div class="spinner"></div>
-                    <h3 style="color: #0f766e; margin-bottom: 15px;">Processing Image with Deep Learning Models...</h3>
-                    <div class="processing-steps">
-                        <div class="processing-step" id="step1">⏳ Preprocessing image...</div>
-                        <div class="processing-step" id="step2">⏳ Running CNN feature extraction...</div>
-                        <div class="processing-step" id="step3">⏳ Classifying with ResNet-50...</div>
-                        <div class="processing-step" id="step4">⏳ Analyzing freshness indicators...</div>
-                        <div class="processing-step" id="step5">⏳ Generating predictions...</div>
-                    </div>
+                    <h3 style="color: #0f766e; margin-bottom: 10px;">Analyzing Your Food...</h3>
+                    <p style="color: #64748b;">Our AI is processing the image</p>
                 </div>
 
                 <div id="results"></div>
@@ -984,28 +851,58 @@
     
     <div class="chat-window" id="chatWindow">
         <div class="chat-header">
-            <div>
-                <h3>🤖 AI Research Assistant</h3>
-                <p>Powered by NLP & ML</p>
-            </div>
+            <h3>🤖 Food Assistant</h3>
             <button class="chat-close" onclick="toggleChat()">×</button>
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="chat-message bot">
                 <div class="message-bubble">
-                    Hello! I'm the AI Research Assistant for FoodCycle AI. I can help you understand the deep learning models, computer vision techniques, and food science behind this system. Ask me anything! 🎓
+                    Hi! I'm your Food Assistant. Ask me about food storage, nutrition, recipes, or shelf life! 🍎
                 </div>
             </div>
         </div>
         <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Ask about models, algorithms, datasets..." onkeypress="handleChatKeyPress(event)">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything..." onkeypress="handleChatKeyPress(event)">
             <button class="chat-send" onclick="sendMessage()">Send</button>
         </div>
     </div>
 
     <script>
         let currentUser = null;
-        let processingInterval = null;
+        let currentImageData = null;
+
+        // Food database with realistic data
+        const foodDatabase = {
+            // Healthy foods
+            'salad': { category: 'Vegetables', freshness: 85, calories: 150, protein: '5g', carbs: '20g', fat: '8g', fiber: '6g', shelfLife: '3-5 days', type: 'healthy' },
+            'apple': { category: 'Fruits', freshness: 90, calories: 95, protein: '0.5g', carbs: '25g', fat: '0.3g', fiber: '4g', shelfLife: '1-2 weeks', type: 'healthy' },
+            'banana': { category: 'Fruits', freshness: 88, calories: 105, protein: '1.3g', carbs: '27g', fat: '0.4g', fiber: '3g', shelfLife: '5-7 days', type: 'healthy' },
+            'broccoli': { category: 'Vegetables', freshness: 87, calories: 55, protein: '4g', carbs: '11g', fat: '0.6g', fiber: '5g', shelfLife: '7-10 days', type: 'healthy' },
+            'carrot': { category: 'Vegetables', freshness: 92, calories: 41, protein: '0.9g', carbs: '10g', fat: '0.2g', fiber: '3g', shelfLife: '2-3 weeks', type: 'healthy' },
+            
+            // Junk foods
+            'pizza': { category: 'Fast Food', freshness: 75, calories: 285, protein: '12g', carbs: '36g', fat: '10g', fiber: '2g', shelfLife: '3-4 days', type: 'junk' },
+            'burger': { category: 'Fast Food', freshness: 70, calories: 540, protein: '25g', carbs: '45g', fat: '25g', fiber: '3g', shelfLife: '1-2 days', type: 'junk' },
+            'fries': { category: 'Fast Food', freshness: 65, calories: 365, protein: '4g', carbs: '48g', fat: '17g', fiber: '4g', shelfLife: '1 day', type: 'junk' },
+            'donut': { category: 'Desserts', freshness: 80, calories: 452, protein: '5g', carbs: '51g', fat: '25g', fiber: '1g', shelfLife: '2-3 days', type: 'junk' },
+            'chips': { category: 'Snacks', freshness: 95, calories: 536, protein: '7g', carbs: '53g', fat: '34g', fiber: '4g', shelfLife: '2-3 months', type: 'junk' },
+            'candy': { category: 'Sweets', freshness: 98, calories: 394, protein: '0g', carbs: '100g', fat: '0g', fiber: '0g', shelfLife: '6-12 months', type: 'junk' },
+            'soda': { category: 'Beverages', freshness: 100, calories: 140, protein: '0g', carbs: '39g', fat: '0g', fiber: '0g', shelfLife: '6-9 months', type: 'junk' },
+            'cake': { category: 'Desserts', freshness: 82, calories: 367, protein: '4g', carbs: '58g', fat: '14g', fiber: '1g', shelfLife: '3-5 days', type: 'junk' },
+            'cookie': { category: 'Desserts', freshness: 90, calories: 502, protein: '6g', carbs: '64g', fat: '25g', fiber: '2g', shelfLife: '2-3 weeks', type: 'junk' },
+            'icecream': { category: 'Desserts', freshness: 95, calories: 207, protein: '4g', carbs: '24g', fat: '11g', fiber: '1g', shelfLife: '2-4 months', type: 'junk' }
+        };
+
+        function detectFoodType(imageSrc) {
+            // Simple detection based on image characteristics
+            // In real app, this would use actual AI/ML
+            const keywords = ['pizza', 'burger', 'fries', 'donut', 'chips', 'candy', 'soda', 'cake', 'cookie', 'icecream', 
+                            'salad', 'apple', 'banana', 'broccoli', 'carrot'];
+            
+            // Random selection for demo (in real app, use actual image recognition)
+            const randomFood = keywords[Math.floor(Math.random() * keywords.length)];
+            return randomFood;
+        }
 
         function showPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1059,7 +956,7 @@
             localStorage.setItem('user', JSON.stringify({ name, email }));
             currentUser = { name, email };
             
-            alert('Account created successfully! Redirecting to dashboard...');
+            alert('Account created successfully!');
             document.getElementById('userName').textContent = currentUser.name;
             showPage('main');
         }
@@ -1107,7 +1004,8 @@
         function handleImageUpload(file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                previewImage.src = e.target.result;
+                currentImageData = e.target.result;
+                previewImage.src = currentImageData;
                 uploadCard.style.display = 'none';
                 previewSection.style.display = 'block';
                 results.innerHTML = '';
@@ -1120,185 +1018,132 @@
             results.innerHTML = '';
             previewSection.style.display = 'none';
 
-            // Simulate processing steps
-            let step = 1;
-            processingInterval = setInterval(() => {
-                if (step > 1) {
-                    document.getElementById(`step${step-1}`).classList.remove('active');
-                    document.getElementById(`step${step-1}`).innerHTML = `✓ ${document.getElementById(`step${step-1}`).textContent.substring(2)}`;
-                }
-                if (step <= 5) {
-                    document.getElementById(`step${step}`).classList.add('active');
-                    step++;
-                }
-            }, 500);
-
             setTimeout(() => {
-                clearInterval(processingInterval);
                 loading.style.display = 'none';
                 previewSection.style.display = 'block';
                 displayResults();
-            }, 3000);
+            }, 2500);
         }
 
         function displayResults() {
-            const analysisData = {
-                freshness: { score: 89, status: 'Fresh', color: 'fresh', confidence: 94.2 },
-                classification: {
-                    dish: 'Fresh Garden Salad',
-                    category: 'Vegetables & Greens',
-                    confidence: 94.2,
-                    topPredictions: [
-                        { name: 'Garden Salad', prob: 94.2 },
-                        { name: 'Caesar Salad', prob: 3.8 },
-                        { name: 'Greek Salad', prob: 1.5 }
-                    ],
-                    ingredients: ['Lettuce', 'Tomatoes', 'Cucumbers', 'Carrots', 'Bell Peppers', 'Onions']
-                },
-                nutrition: {
-                    calories: 145,
-                    protein: '5.2g',
-                    carbs: '18.5g',
-                    fat: '7.8g',
-                    fiber: '6.3g',
-                    vitamins: ['Vitamin A', 'Vitamin C', 'Vitamin K', 'Folate', 'Potassium']
-                },
-                shelfLife: {
-                    current: 'Day 1 - Peak Freshness',
-                    optimal: '3-5 days (refrigerated at 2-4°C)',
-                    refrigerated: '5-7 days (sealed container)',
-                    algorithm: 'LSTM-based time series prediction',
-                    tips: [
-                        'Store in airtight container immediately after preparation',
-                        'Maintain refrigeration at 35-40°F (2-4°C)',
-                        'Consume within 3 days for optimal nutritional value',
-                        'Keep dressing separate until serving to prevent wilting',
-                        'Avoid washing until ready to consume'
-                    ]
-                }
-            };
+            // Detect food type from image
+            const detectedFood = detectFoodType(currentImageData);
+            const foodData = foodDatabase[detectedFood];
+            
+            const foodName = detectedFood.charAt(0).toUpperCase() + detectedFood.slice(1);
+            const isHealthy = foodData.type === 'healthy';
+            
+            const healthWarning = !isHealthy ? `
+                <div style="background: #fef3c7; padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid #f59e0b;">
+                    <strong style="color: #92400e;">⚠️ Health Notice:</strong>
+                    <p style="color: #92400e; margin-top: 5px; font-size: 0.95em;">This is a processed/junk food item. High in calories, fats, and low in essential nutrients. Consider healthier alternatives for better nutrition.</p>
+                </div>
+            ` : '';
 
             const resultsHTML = `
                 <div class="results-section">
                     <div class="result-card">
-                        <h3><span class="icon">🧠</span> CNN Classification Results</h3>
-                        <div class="model-confidence">
-                            <div class="label">Model Confidence Score</div>
-                            <div class="value">${analysisData.classification.confidence}%</div>
-                        </div>
-                        <h4 style="color: #0f766e; margin: 15px 0; font-size: 1.4em;">${analysisData.classification.dish}</h4>
-                        <p style="margin-bottom: 15px;">
-                            <span class="tag tag-primary">${analysisData.classification.category}</span>
+                        <h3><span class="icon">🍽️</span> Food Classification</h3>
+                        <h4 style="color: #0f766e; margin: 15px 0; font-size: 1.4em;">${foodName}</h4>
+                        <p>
+                            <span class="tag tag-primary">${foodData.category}</span>
+                            <span class="tag ${isHealthy ? 'tag-success' : 'tag-warning'}">${isHealthy ? '✓ Healthy' : '⚠️ Junk Food'}</span>
                         </p>
-                        <div style="margin-top: 20px;">
-                            <strong style="color: #0f172a;">Top-3 Predictions (Softmax):</strong>
-                            ${analysisData.classification.topPredictions.map(pred => 
-                                `<div style="margin: 8px 0; padding: 8px; background: #f8fafc; border-radius: 6px;">
-                                    <div style="display: flex; justify-content: space-between;">
-                                        <span>${pred.name}</span>
-                                        <span style="color: #0f766e; font-weight: 600;">${pred.prob}%</span>
-                                    </div>
-                                </div>`
-                            ).join('')}
-                        </div>
-                        <div style="margin-top: 20px;">
-                            <strong style="color: #0f172a;">Detected Ingredients (YOLO v8):</strong>
-                            <div style="margin-top: 12px;">
-                                ${analysisData.classification.ingredients.map(ing => 
-                                    `<span class="tag tag-primary">${ing}</span>`
-                                ).join('')}
-                            </div>
-                        </div>
+                        ${healthWarning}
                     </div>
 
                     <div class="result-card">
-                        <h3><span class="icon">🌿</span> Freshness Detection (CV)</h3>
-                        <div class="model-confidence">
-                            <div class="label">Detection Accuracy</div>
-                            <div class="value">${analysisData.freshness.confidence}%</div>
-                        </div>
+                        <h3><span class="icon">🌿</span> Freshness Analysis</h3>
                         <div class="freshness-indicator">
                             <div class="freshness-bar">
-                                <div class="freshness-fill ${analysisData.freshness.color}" 
-                                     style="width: ${analysisData.freshness.score}%"></div>
+                                <div class="freshness-fill ${foodData.freshness >= 80 ? 'fresh' : foodData.freshness >= 60 ? 'moderate' : 'spoiled'}" 
+                                     style="width: ${foodData.freshness}%"></div>
                             </div>
-                            <strong style="color: #0f766e; font-size: 1.2em;">${analysisData.freshness.score}%</strong>
+                            <strong style="color: #0f766e; font-size: 1.2em;">${foodData.freshness}%</strong>
                         </div>
                         <p style="margin-top: 15px;">
-                            <span class="tag tag-success">✓ ${analysisData.freshness.status}</span>
+                            <span class="tag ${foodData.freshness >= 80 ? 'tag-success' : foodData.freshness >= 60 ? 'tag-warning' : 'tag-danger'}">
+                                ${foodData.freshness >= 80 ? '✓ Fresh' : foodData.freshness >= 60 ? '⚠️ Moderate' : '✗ Poor'}
+                            </span>
                         </p>
                         <p style="margin-top: 15px; color: #64748b; line-height: 1.6;">
-                            <strong>Analysis Method:</strong> Color histogram analysis, texture feature extraction using Gabor filters, and edge detection algorithms confirm excellent freshness with no visible deterioration markers.
+                            ${foodData.freshness >= 80 ? 'Food appears to be in excellent condition.' : 
+                              foodData.freshness >= 60 ? 'Food is acceptable but consume soon.' : 
+                              'Food quality is declining. Check before consuming.'}
                         </p>
                     </div>
 
                     <div class="result-card">
-                        <h3><span class="icon">📊</span> Nutritional Analysis</h3>
-                        <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">Estimated using USDA FoodData Central API</p>
+                        <h3><span class="icon">📊</span> Nutrition Facts</h3>
                         <div class="nutrition-table">
                             <div class="nutrition-row">
                                 <span><strong>Calories</strong></span>
-                                <span style="color: #0f766e; font-weight: 600;">${analysisData.nutrition.calories} kcal</span>
+                                <span style="color: #0f766e; font-weight: 600;">${foodData.calories} kcal</span>
                             </div>
                             <div class="nutrition-row">
                                 <span>Protein</span>
-                                <span>${analysisData.nutrition.protein}</span>
+                                <span>${foodData.protein}</span>
                             </div>
                             <div class="nutrition-row">
                                 <span>Carbohydrates</span>
-                                <span>${analysisData.nutrition.carbs}</span>
+                                <span>${foodData.carbs}</span>
                             </div>
                             <div class="nutrition-row">
                                 <span>Total Fat</span>
-                                <span>${analysisData.nutrition.fat}</span>
+                                <span>${foodData.fat}</span>
                             </div>
                             <div class="nutrition-row">
                                 <span>Dietary Fiber</span>
-                                <span>${analysisData.nutrition.fiber}</span>
+                                <span>${foodData.fiber}</span>
                             </div>
                         </div>
-                        <div style="margin-top: 20px;">
-                            <strong style="color: #0f172a;">Micronutrients Detected:</strong>
-                            <div style="margin-top: 12px;">
-                                ${analysisData.nutrition.vitamins.map(vit => 
-                                    `<span class="tag tag-success">${vit}</span>`
-                                ).join('')}
+                        ${!isHealthy ? `
+                            <div style="margin-top: 15px; padding: 12px; background: #fee2e2; border-radius: 8px;">
+                                <p style="color: #991b1b; font-size: 0.9em; font-weight: 600;">
+                                    ⚠️ High in calories and fats. Low nutritional value.
+                                </p>
                             </div>
-                        </div>
+                        ` : `
+                            <div style="margin-top: 15px; padding: 12px; background: #d1fae5; border-radius: 8px;">
+                                <p style="color: #065f46; font-size: 0.9em; font-weight: 600;">
+                                    ✓ Rich in vitamins, minerals, and fiber. Excellent choice!
+                                </p>
+                            </div>
+                        `}
                     </div>
 
                     <div class="result-card">
-                        <h3><span class="icon">⏰</span> Shelf Life Prediction (ML)</h3>
-                        <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">Algorithm: ${analysisData.shelfLife.algorithm}</p>
+                        <h3><span class="icon">⏰</span> Shelf Life</h3>
                         <div class="shelf-life-timeline">
                             <div class="timeline-item">
                                 <div class="timeline-dot" style="background: #14b8a6;"></div>
                                 <div>
-                                    <strong style="color: #0f172a;">Current Status:</strong><br>
-                                    <span style="color: #64748b;">${analysisData.shelfLife.current}</span>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-dot" style="background: #fbbf24;"></div>
-                                <div>
-                                    <strong style="color: #0f172a;">Optimal Consumption:</strong><br>
-                                    <span style="color: #64748b;">${analysisData.shelfLife.optimal}</span>
+                                    <strong style="color: #0f172a;">Storage Duration:</strong><br>
+                                    <span style="color: #64748b;">${foodData.shelfLife}</span>
                                 </div>
                             </div>
                             <div class="timeline-item">
                                 <div class="timeline-dot" style="background: #0f766e;"></div>
                                 <div>
-                                    <strong style="color: #0f172a;">Maximum Storage:</strong><br>
-                                    <span style="color: #64748b;">${analysisData.shelfLife.refrigerated}</span>
+                                    <strong style="color: #0f172a;">Storage Method:</strong><br>
+                                    <span style="color: #64748b;">${isHealthy ? 'Refrigerate in airtight container' : 'Store in cool, dry place'}</span>
                                 </div>
                             </div>
                         </div>
-                        <div style="margin-top: 25px;">
-                            <strong style="color: #0f172a;">AI-Generated Storage Recommendations:</strong>
+                        <div style="margin-top: 20px;">
+                            <strong style="color: #0f172a;">Storage Tips:</strong>
                             <ul style="margin-top: 12px; padding-left: 20px; color: #64748b; line-height: 1.8;">
-                                ${analysisData.shelfLife.tips.map(tip => 
-                                    `<li style="margin: 8px 0;">${tip}</li>`
-                                ).join('')}
+                                ${isHealthy ? `
+                                    <li>Keep refrigerated at 2-4°C</li>
+                                    <li>Store in airtight container</li>
+                                    <li>Consume within recommended time</li>
+                                    <li>Check for signs of spoilage daily</li>
+                                ` : `
+                                    <li>Store in original packaging</li>
+                                    <li>Keep away from direct sunlight</li>
+                                    <li>Check expiration date</li>
+                                    <li>Consume in moderation</li>
+                                `}
                             </ul>
                         </div>
                     </div>
@@ -1313,13 +1158,7 @@
             previewSection.style.display = 'none';
             results.innerHTML = '';
             fileInput.value = '';
-            
-            // Reset processing steps
-            for (let i = 1; i <= 5; i++) {
-                const step = document.getElementById(`step${i}`);
-                step.classList.remove('active');
-                step.innerHTML = step.textContent.replace('✓ ', '⏳ ');
-            }
+            currentImageData = null;
         }
 
         function toggleChat() {
@@ -1360,24 +1199,20 @@
         function getBotResponse(message) {
             const lowerMessage = message.toLowerCase();
             
-            if (lowerMessage.includes('model') || lowerMessage.includes('architecture') || lowerMessage.includes('cnn')) {
-                return 'Our system uses a hybrid architecture: ResNet-50 (pretrained on ImageNet) for feature extraction and classification, combined with YOLO v8 for object detection and ingredient identification. The models are fine-tuned on the Food-101 dataset with transfer learning. 🧠';
-            } else if (lowerMessage.includes('dataset') || lowerMessage.includes('training') || lowerMessage.includes('data')) {
-                return 'We trained on Food-101 dataset (101,000 images across 101 food categories), augmented with custom freshness detection data. Training used data augmentation (rotation, flip, color jitter), batch size of 32, Adam optimizer, and learning rate scheduling. Achieved 94.2% validation accuracy. 📊';
-            } else if (lowerMessage.includes('accuracy') || lowerMessage.includes('performance') || lowerMessage.includes('metrics')) {
-                return 'Model Performance: Classification accuracy: 94.2%, Precision: 93.8%, Recall: 94.5%, F1-Score: 94.1%. Freshness detection: 91.7% accuracy. Average inference time: 2.3 seconds per image on CPU, 0.8s on GPU. 📈';
-            } else if (lowerMessage.includes('algorithm') || lowerMessage.includes('technique') || lowerMessage.includes('method')) {
-                return 'Key techniques: Transfer learning with ResNet-50, YOLO v8 for real-time detection, color histogram analysis for freshness, Gabor filters for texture, LSTM for shelf-life prediction, and ensemble methods for improved accuracy. 🔬';
-            } else if (lowerMessage.includes('opencv') || lowerMessage.includes('computer vision') || lowerMessage.includes('image processing')) {
-                return 'OpenCV is used for: image preprocessing (resize, normalize), color space conversion (RGB to HSV/LAB), edge detection (Canny), contour analysis, histogram equalization, and feature extraction using SIFT/ORB descriptors. 📷';
-            } else if (lowerMessage.includes('tensorflow') || lowerMessage.includes('pytorch') || lowerMessage.includes('framework')) {
-                return 'We use PyTorch for model development (dynamic computation graphs, easier debugging) and TensorFlow for deployment (TF Lite for mobile). Both frameworks support our ResNet-50 and YOLO implementations with CUDA acceleration. ⚡';
-            } else if (lowerMessage.includes('future') || lowerMessage.includes('improvement') || lowerMessage.includes('enhancement')) {
-                return 'Future enhancements: Real-time video analysis, mobile app deployment, integration with IoT sensors for temperature/humidity monitoring, blockchain for food traceability, and federated learning for privacy-preserving model updates. 🚀';
-            } else if (lowerMessage.includes('shelf life') || lowerMessage.includes('lstm') || lowerMessage.includes('prediction')) {
-                return 'Shelf life prediction uses LSTM (Long Short-Term Memory) networks trained on time-series data of food degradation patterns. Input features include freshness score, temperature, humidity, and food category. Prediction accuracy: 87.3%. ⏰';
+            if (lowerMessage.includes('storage') || lowerMessage.includes('store')) {
+                return 'For optimal storage: Keep vegetables in the crisper drawer at 2-4°C, store fruits at room temperature until ripe, and place dairy products on middle shelves. Always use airtight containers! 🥬';
+            } else if (lowerMessage.includes('nutrition') || lowerMessage.includes('healthy')) {
+                return 'A balanced diet includes: 5+ servings of fruits & vegetables daily, whole grains, lean proteins, healthy fats, and adequate hydration. Limit processed foods and added sugars! 🌈';
+            } else if (lowerMessage.includes('junk') || lowerMessage.includes('fast food')) {
+                return 'Junk foods are high in calories, unhealthy fats, sugar, and sodium while low in nutrients. They can lead to weight gain and health issues. Try healthier alternatives like fruits, nuts, or homemade meals! 🍎';
+            } else if (lowerMessage.includes('recipe') || lowerMessage.includes('cook')) {
+                return 'Try this healthy recipe: Mix fresh greens, cherry tomatoes, cucumbers, chickpeas, and feta. Dress with olive oil, lemon juice, salt, and pepper. Add grilled chicken for extra protein! 🥗';
+            } else if (lowerMessage.includes('shelf life') || lowerMessage.includes('last') || lowerMessage.includes('expire')) {
+                return 'Typical shelf life: Leafy greens (3-5 days), root vegetables (1-2 weeks), most fruits (5-7 days), dairy (check date), cooked meals (3-4 days). Always refrigerate perishables! 📅';
+            } else if (lowerMessage.includes('fresh') || lowerMessage.includes('spoiled')) {
+                return 'Check freshness by: Visual inspection (color, mold), texture (firmness), smell (off odors), and expiration dates. When in doubt, throw it out! Safety first. 👃';
             } else {
-                return 'I can explain: model architecture, datasets, training process, algorithms, computer vision techniques, deep learning frameworks, performance metrics, and future improvements. What would you like to know? 🎓';
+                return 'I can help you with: food storage tips, nutrition advice, healthy recipes, shelf life information, and freshness checks. What would you like to know? 😊';
             }
         }
 

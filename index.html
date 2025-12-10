@@ -431,7 +431,7 @@
 
         .fresh { background: linear-gradient(90deg, #0f766e 0%, #14b8a6 100%); }
         .moderate { background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%); }
-        .spoiled { background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%); }
+        .poor { background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%); }
 
         .nutrition-table {
             width: 100%;
@@ -873,33 +873,30 @@
 
         // Food database with realistic data
         const foodDatabase = {
-            // Healthy foods
+            // Healthy foods - HIGH freshness scores (80-95)
             'salad': { category: 'Vegetables', freshness: 85, calories: 150, protein: '5g', carbs: '20g', fat: '8g', fiber: '6g', shelfLife: '3-5 days', type: 'healthy' },
             'apple': { category: 'Fruits', freshness: 90, calories: 95, protein: '0.5g', carbs: '25g', fat: '0.3g', fiber: '4g', shelfLife: '1-2 weeks', type: 'healthy' },
             'banana': { category: 'Fruits', freshness: 88, calories: 105, protein: '1.3g', carbs: '27g', fat: '0.4g', fiber: '3g', shelfLife: '5-7 days', type: 'healthy' },
             'broccoli': { category: 'Vegetables', freshness: 87, calories: 55, protein: '4g', carbs: '11g', fat: '0.6g', fiber: '5g', shelfLife: '7-10 days', type: 'healthy' },
             'carrot': { category: 'Vegetables', freshness: 92, calories: 41, protein: '0.9g', carbs: '10g', fat: '0.2g', fiber: '3g', shelfLife: '2-3 weeks', type: 'healthy' },
             
-            // Junk foods
-            'pizza': { category: 'Fast Food', freshness: 75, calories: 285, protein: '12g', carbs: '36g', fat: '10g', fiber: '2g', shelfLife: '3-4 days', type: 'junk' },
-            'burger': { category: 'Fast Food', freshness: 70, calories: 540, protein: '25g', carbs: '45g', fat: '25g', fiber: '3g', shelfLife: '1-2 days', type: 'junk' },
-            'fries': { category: 'Fast Food', freshness: 65, calories: 365, protein: '4g', carbs: '48g', fat: '17g', fiber: '4g', shelfLife: '1 day', type: 'junk' },
-            'donut': { category: 'Desserts', freshness: 80, calories: 452, protein: '5g', carbs: '51g', fat: '25g', fiber: '1g', shelfLife: '2-3 days', type: 'junk' },
-            'chips': { category: 'Snacks', freshness: 95, calories: 536, protein: '7g', carbs: '53g', fat: '34g', fiber: '4g', shelfLife: '2-3 months', type: 'junk' },
-            'candy': { category: 'Sweets', freshness: 98, calories: 394, protein: '0g', carbs: '100g', fat: '0g', fiber: '0g', shelfLife: '6-12 months', type: 'junk' },
-            'soda': { category: 'Beverages', freshness: 100, calories: 140, protein: '0g', carbs: '39g', fat: '0g', fiber: '0g', shelfLife: '6-9 months', type: 'junk' },
-            'cake': { category: 'Desserts', freshness: 82, calories: 367, protein: '4g', carbs: '58g', fat: '14g', fiber: '1g', shelfLife: '3-5 days', type: 'junk' },
-            'cookie': { category: 'Desserts', freshness: 90, calories: 502, protein: '6g', carbs: '64g', fat: '25g', fiber: '2g', shelfLife: '2-3 weeks', type: 'junk' },
-            'icecream': { category: 'Desserts', freshness: 95, calories: 207, protein: '4g', carbs: '24g', fat: '11g', fiber: '1g', shelfLife: '2-4 months', type: 'junk' }
+            // Junk foods - LOW freshness scores (40-65) - PROCESSED/UNHEALTHY
+            'pizza': { category: 'Fast Food', freshness: 55, calories: 285, protein: '12g', carbs: '36g', fat: '10g', fiber: '2g', shelfLife: '3-4 days', type: 'junk' },
+            'burger': { category: 'Fast Food', freshness: 50, calories: 540, protein: '25g', carbs: '45g', fat: '25g', fiber: '3g', shelfLife: '1-2 days', type: 'junk' },
+            'fries': { category: 'Fast Food', freshness: 45, calories: 365, protein: '4g', carbs: '48g', fat: '17g', fiber: '4g', shelfLife: '1 day', type: 'junk' },
+            'donut': { category: 'Desserts', freshness: 60, calories: 452, protein: '5g', carbs: '51g', fat: '25g', fiber: '1g', shelfLife: '2-3 days', type: 'junk' },
+            'chips': { category: 'Snacks', freshness: 65, calories: 536, protein: '7g', carbs: '53g', fat: '34g', fiber: '4g', shelfLife: '2-3 months', type: 'junk' },
+            'candy': { category: 'Sweets', freshness: 58, calories: 394, protein: '0g', carbs: '100g', fat: '0g', fiber: '0g', shelfLife: '6-12 months', type: 'junk' },
+            'soda': { category: 'Beverages', freshness: 40, calories: 140, protein: '0g', carbs: '39g', fat: '0g', fiber: '0g', shelfLife: '6-9 months', type: 'junk' },
+            'cake': { category: 'Desserts', freshness: 62, calories: 367, protein: '4g', carbs: '58g', fat: '14g', fiber: '1g', shelfLife: '3-5 days', type: 'junk' },
+            'cookie': { category: 'Desserts', freshness: 60, calories: 502, protein: '6g', carbs: '64g', fat: '25g', fiber: '2g', shelfLife: '2-3 weeks', type: 'junk' },
+            'icecream': { category: 'Desserts', freshness: 55, calories: 207, protein: '4g', carbs: '24g', fat: '11g', fiber: '1g', shelfLife: '2-4 months', type: 'junk' }
         };
 
         function detectFoodType(imageSrc) {
-            // Simple detection based on image characteristics
-            // In real app, this would use actual AI/ML
             const keywords = ['pizza', 'burger', 'fries', 'donut', 'chips', 'candy', 'soda', 'cake', 'cookie', 'icecream', 
                             'salad', 'apple', 'banana', 'broccoli', 'carrot'];
             
-            // Random selection for demo (in real app, use actual image recognition)
             const randomFood = keywords[Math.floor(Math.random() * keywords.length)];
             return randomFood;
         }
@@ -1026,17 +1023,27 @@
         }
 
         function displayResults() {
-            // Detect food type from image
             const detectedFood = detectFoodType(currentImageData);
             const foodData = foodDatabase[detectedFood];
             
             const foodName = detectedFood.charAt(0).toUpperCase() + detectedFood.slice(1);
             const isHealthy = foodData.type === 'healthy';
             
+            // Determine freshness color based on score
+            let freshnessColor = 'poor';
+            let freshnessStatus = 'Poor Quality';
+            if (foodData.freshness >= 80) {
+                freshnessColor = 'fresh';
+                freshnessStatus = 'Fresh & Healthy';
+            } else if (foodData.freshness >= 60) {
+                freshnessColor = 'moderate';
+                freshnessStatus = 'Moderate Quality';
+            }
+            
             const healthWarning = !isHealthy ? `
-                <div style="background: #fef3c7; padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid #f59e0b;">
-                    <strong style="color: #92400e;">⚠️ Health Notice:</strong>
-                    <p style="color: #92400e; margin-top: 5px; font-size: 0.95em;">This is a processed/junk food item. High in calories, fats, and low in essential nutrients. Consider healthier alternatives for better nutrition.</p>
+                <div style="background: #fee2e2; padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid #dc2626;">
+                    <strong style="color: #991b1b;">🚫 Health Warning:</strong>
+                    <p style="color: #991b1b; margin-top: 5px; font-size: 0.95em;">This is a processed/junk food item. High in calories, unhealthy fats, and low in essential nutrients. Regular consumption may lead to health issues. Consider healthier alternatives!</p>
                 </div>
             ` : '';
 
@@ -1044,32 +1051,32 @@
                 <div class="results-section">
                     <div class="result-card">
                         <h3><span class="icon">🍽️</span> Food Classification</h3>
-                        <h4 style="color: #0f766e; margin: 15px 0; font-size: 1.4em;">${foodName}</h4>
+                        <h4 style="color: ${isHealthy ? '#0f766e' : '#dc2626'}; margin: 15px 0; font-size: 1.4em;">${foodName}</h4>
                         <p>
                             <span class="tag tag-primary">${foodData.category}</span>
-                            <span class="tag ${isHealthy ? 'tag-success' : 'tag-warning'}">${isHealthy ? '✓ Healthy' : '⚠️ Junk Food'}</span>
+                            <span class="tag ${isHealthy ? 'tag-success' : 'tag-danger'}">${isHealthy ? '✓ Healthy Food' : '⚠️ Junk Food'}</span>
                         </p>
                         ${healthWarning}
                     </div>
 
                     <div class="result-card">
-                        <h3><span class="icon">🌿</span> Freshness Analysis</h3>
+                        <h3><span class="icon">${isHealthy ? '🌿' : '⚠️'}</span> Freshness Analysis</h3>
                         <div class="freshness-indicator">
                             <div class="freshness-bar">
-                                <div class="freshness-fill ${foodData.freshness >= 80 ? 'fresh' : foodData.freshness >= 60 ? 'moderate' : 'spoiled'}" 
+                                <div class="freshness-fill ${freshnessColor}" 
                                      style="width: ${foodData.freshness}%"></div>
                             </div>
-                            <strong style="color: #0f766e; font-size: 1.2em;">${foodData.freshness}%</strong>
+                            <strong style="color: ${freshnessColor === 'fresh' ? '#0f766e' : freshnessColor === 'moderate' ? '#f59e0b' : '#dc2626'}; font-size: 1.2em;">${foodData.freshness}%</strong>
                         </div>
                         <p style="margin-top: 15px;">
-                            <span class="tag ${foodData.freshness >= 80 ? 'tag-success' : foodData.freshness >= 60 ? 'tag-warning' : 'tag-danger'}">
-                                ${foodData.freshness >= 80 ? '✓ Fresh' : foodData.freshness >= 60 ? '⚠️ Moderate' : '✗ Poor'}
+                            <span class="tag ${freshnessColor === 'fresh' ? 'tag-success' : freshnessColor === 'moderate' ? 'tag-warning' : 'tag-danger'}">
+                                ${freshnessStatus}
                             </span>
                         </p>
                         <p style="margin-top: 15px; color: #64748b; line-height: 1.6;">
-                            ${foodData.freshness >= 80 ? 'Food appears to be in excellent condition.' : 
-                              foodData.freshness >= 60 ? 'Food is acceptable but consume soon.' : 
-                              'Food quality is declining. Check before consuming.'}
+                            ${isHealthy ? 
+                                'Natural, unprocessed food with high nutritional value and freshness.' : 
+                                'Highly processed food with artificial additives, preservatives, and low nutritional quality. Not recommended for regular consumption.'}
                         </p>
                     </div>
 
@@ -1078,7 +1085,7 @@
                         <div class="nutrition-table">
                             <div class="nutrition-row">
                                 <span><strong>Calories</strong></span>
-                                <span style="color: #0f766e; font-weight: 600;">${foodData.calories} kcal</span>
+                                <span style="color: ${foodData.calories > 300 ? '#dc2626' : '#0f766e'}; font-weight: 600;">${foodData.calories} kcal ${foodData.calories > 300 ? '⚠️' : ''}</span>
                             </div>
                             <div class="nutrition-row">
                                 <span>Protein</span>
@@ -1090,7 +1097,7 @@
                             </div>
                             <div class="nutrition-row">
                                 <span>Total Fat</span>
-                                <span>${foodData.fat}</span>
+                                <span style="color: ${parseInt(foodData.fat) > 15 ? '#dc2626' : '#334155'};">${foodData.fat} ${parseInt(foodData.fat) > 15 ? '⚠️' : ''}</span>
                             </div>
                             <div class="nutrition-row">
                                 <span>Dietary Fiber</span>
@@ -1098,25 +1105,31 @@
                             </div>
                         </div>
                         ${!isHealthy ? `
-                            <div style="margin-top: 15px; padding: 12px; background: #fee2e2; border-radius: 8px;">
-                                <p style="color: #991b1b; font-size: 0.9em; font-weight: 600;">
-                                    ⚠️ High in calories and fats. Low nutritional value.
+                            <div style="margin-top: 15px; padding: 15px; background: #fee2e2; border-radius: 8px; border-left: 3px solid #dc2626;">
+                                <p style="color: #991b1b; font-size: 0.95em; font-weight: 600; margin-bottom: 8px;">
+                                    🚫 Nutritional Concerns:
                                 </p>
+                                <ul style="color: #991b1b; font-size: 0.9em; padding-left: 20px; line-height: 1.6;">
+                                    <li>High in empty calories</li>
+                                    <li>Excessive unhealthy fats</li>
+                                    <li>Low in vitamins & minerals</li>
+                                    <li>Contains artificial additives</li>
+                                </ul>
                             </div>
                         ` : `
                             <div style="margin-top: 15px; padding: 12px; background: #d1fae5; border-radius: 8px;">
                                 <p style="color: #065f46; font-size: 0.9em; font-weight: 600;">
-                                    ✓ Rich in vitamins, minerals, and fiber. Excellent choice!
+                                    ✓ Rich in vitamins, minerals, antioxidants, and fiber. Excellent nutritional choice!
                                 </p>
                             </div>
                         `}
                     </div>
 
                     <div class="result-card">
-                        <h3><span class="icon">⏰</span> Shelf Life</h3>
+                        <h3><span class="icon">⏰</span> Shelf Life & Storage</h3>
                         <div class="shelf-life-timeline">
                             <div class="timeline-item">
-                                <div class="timeline-dot" style="background: #14b8a6;"></div>
+                                <div class="timeline-dot" style="background: ${isHealthy ? '#14b8a6' : '#f59e0b'};"></div>
                                 <div>
                                     <strong style="color: #0f172a;">Storage Duration:</strong><br>
                                     <span style="color: #64748b;">${foodData.shelfLife}</span>
@@ -1131,7 +1144,7 @@
                             </div>
                         </div>
                         <div style="margin-top: 20px;">
-                            <strong style="color: #0f172a;">Storage Tips:</strong>
+                            <strong style="color: #0f172a;">${isHealthy ? 'Storage Tips:' : 'Health Recommendations:'}</strong>
                             <ul style="margin-top: 12px; padding-left: 20px; color: #64748b; line-height: 1.8;">
                                 ${isHealthy ? `
                                     <li>Keep refrigerated at 2-4°C</li>
@@ -1139,10 +1152,10 @@
                                     <li>Consume within recommended time</li>
                                     <li>Check for signs of spoilage daily</li>
                                 ` : `
-                                    <li>Store in original packaging</li>
-                                    <li>Keep away from direct sunlight</li>
-                                    <li>Check expiration date</li>
-                                    <li>Consume in moderation</li>
+                                    <li style="color: #dc2626;">⚠️ Limit consumption frequency</li>
+                                    <li style="color: #dc2626;">⚠️ Not suitable for daily diet</li>
+                                    <li>Consider healthier alternatives</li>
+                                    <li>Balance with nutritious foods</li>
                                 `}
                             </ul>
                         </div>

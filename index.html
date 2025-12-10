@@ -429,9 +429,9 @@
             border-radius: 12px;
         }
 
-        .fresh { background: linear-gradient(90deg, #0f766e 0%, #14b8a6 100%); }
+        .fresh { background: linear-gradient(90deg, #10b981 0%, #34d399 100%); }
         .moderate { background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%); }
-        .poor { background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%); }
+        .poor { background: linear-gradient(90deg, #ef4444 0%, #f87171 100%); }
 
         .nutrition-table {
             width: 100%;
@@ -880,17 +880,17 @@
             'broccoli': { category: 'Vegetables', freshness: 87, calories: 55, protein: '4g', carbs: '11g', fat: '0.6g', fiber: '5g', shelfLife: '7-10 days', type: 'healthy' },
             'carrot': { category: 'Vegetables', freshness: 92, calories: 41, protein: '0.9g', carbs: '10g', fat: '0.2g', fiber: '3g', shelfLife: '2-3 weeks', type: 'healthy' },
             
-            // Junk foods - LOW freshness scores (40-65) - PROCESSED/UNHEALTHY
-            'pizza': { category: 'Fast Food', freshness: 55, calories: 285, protein: '12g', carbs: '36g', fat: '10g', fiber: '2g', shelfLife: '3-4 days', type: 'junk' },
-            'burger': { category: 'Fast Food', freshness: 50, calories: 540, protein: '25g', carbs: '45g', fat: '25g', fiber: '3g', shelfLife: '1-2 days', type: 'junk' },
-            'fries': { category: 'Fast Food', freshness: 45, calories: 365, protein: '4g', carbs: '48g', fat: '17g', fiber: '4g', shelfLife: '1 day', type: 'junk' },
-            'donut': { category: 'Desserts', freshness: 60, calories: 452, protein: '5g', carbs: '51g', fat: '25g', fiber: '1g', shelfLife: '2-3 days', type: 'junk' },
-            'chips': { category: 'Snacks', freshness: 65, calories: 536, protein: '7g', carbs: '53g', fat: '34g', fiber: '4g', shelfLife: '2-3 months', type: 'junk' },
-            'candy': { category: 'Sweets', freshness: 58, calories: 394, protein: '0g', carbs: '100g', fat: '0g', fiber: '0g', shelfLife: '6-12 months', type: 'junk' },
-            'soda': { category: 'Beverages', freshness: 40, calories: 140, protein: '0g', carbs: '39g', fat: '0g', fiber: '0g', shelfLife: '6-9 months', type: 'junk' },
-            'cake': { category: 'Desserts', freshness: 62, calories: 367, protein: '4g', carbs: '58g', fat: '14g', fiber: '1g', shelfLife: '3-5 days', type: 'junk' },
-            'cookie': { category: 'Desserts', freshness: 60, calories: 502, protein: '6g', carbs: '64g', fat: '25g', fiber: '2g', shelfLife: '2-3 weeks', type: 'junk' },
-            'icecream': { category: 'Desserts', freshness: 55, calories: 207, protein: '4g', carbs: '24g', fat: '11g', fiber: '1g', shelfLife: '2-4 months', type: 'junk' }
+            // Junk foods - LOW freshness scores (35-60) - PROCESSED/UNHEALTHY
+            'pizza': { category: 'Fast Food', freshness: 50, calories: 285, protein: '12g', carbs: '36g', fat: '10g', fiber: '2g', shelfLife: '3-4 days', type: 'junk' },
+            'burger': { category: 'Fast Food', freshness: 45, calories: 540, protein: '25g', carbs: '45g', fat: '25g', fiber: '3g', shelfLife: '1-2 days', type: 'junk' },
+            'fries': { category: 'Fast Food', freshness: 40, calories: 365, protein: '4g', carbs: '48g', fat: '17g', fiber: '4g', shelfLife: '1 day', type: 'junk' },
+            'donut': { category: 'Desserts', freshness: 55, calories: 452, protein: '5g', carbs: '51g', fat: '25g', fiber: '1g', shelfLife: '2-3 days', type: 'junk' },
+            'chips': { category: 'Snacks', freshness: 60, calories: 536, protein: '7g', carbs: '53g', fat: '34g', fiber: '4g', shelfLife: '2-3 months', type: 'junk' },
+            'candy': { category: 'Sweets', freshness: 50, calories: 394, protein: '0g', carbs: '100g', fat: '0g', fiber: '0g', shelfLife: '6-12 months', type: 'junk' },
+            'soda': { category: 'Beverages', freshness: 35, calories: 140, protein: '0g', carbs: '39g', fat: '0g', fiber: '0g', shelfLife: '6-9 months', type: 'junk' },
+            'cake': { category: 'Desserts', freshness: 58, calories: 367, protein: '4g', carbs: '58g', fat: '14g', fiber: '1g', shelfLife: '3-5 days', type: 'junk' },
+            'cookie': { category: 'Desserts', freshness: 55, calories: 502, protein: '6g', carbs: '64g', fat: '25g', fiber: '2g', shelfLife: '2-3 weeks', type: 'junk' },
+            'icecream': { category: 'Desserts', freshness: 52, calories: 207, protein: '4g', carbs: '24g', fat: '11g', fiber: '1g', shelfLife: '2-4 months', type: 'junk' }
         };
 
         function detectFoodType(imageSrc) {
@@ -921,15 +921,14 @@
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
 
-            const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+            const storedUser = JSON.parse(localStorage.getItem('foodcycle_user') || '{}');
             
-            if (storedUser.email === email) {
+            if (storedUser.email && storedUser.email === email && storedUser.password === password) {
                 currentUser = storedUser;
                 document.getElementById('userName').textContent = currentUser.name;
                 showPage('main');
             } else {
-                alert('Account not found. Please create an account first.');
-                showPage('register');
+                alert('Invalid credentials! Please check your email and password or create a new account.');
             }
         }
 
@@ -950,10 +949,11 @@
                 return;
             }
 
-            localStorage.setItem('user', JSON.stringify({ name, email }));
-            currentUser = { name, email };
+            // Save user with password
+            localStorage.setItem('foodcycle_user', JSON.stringify({ name, email, password }));
+            currentUser = { name, email, password };
             
-            alert('Account created successfully!');
+            alert('Account created successfully! Logging you in...');
             document.getElementById('userName').textContent = currentUser.name;
             showPage('main');
         }
@@ -972,6 +972,10 @@
         const previewImage = document.getElementById('previewImage');
         const loading = document.getElementById('loading');
         const results = document.getElementById('results');
+
+        uploadCard.addEventListener('click', () => {
+            fileInput.click();
+        });
 
         uploadCard.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -1032,10 +1036,10 @@
             // Determine freshness color based on score
             let freshnessColor = 'poor';
             let freshnessStatus = 'Poor Quality';
-            if (foodData.freshness >= 80) {
+            if (foodData.freshness >= 75) {
                 freshnessColor = 'fresh';
                 freshnessStatus = 'Fresh & Healthy';
-            } else if (foodData.freshness >= 60) {
+            } else if (foodData.freshness >= 55) {
                 freshnessColor = 'moderate';
                 freshnessStatus = 'Moderate Quality';
             }
@@ -1066,7 +1070,7 @@
                                 <div class="freshness-fill ${freshnessColor}" 
                                      style="width: ${foodData.freshness}%"></div>
                             </div>
-                            <strong style="color: ${freshnessColor === 'fresh' ? '#0f766e' : freshnessColor === 'moderate' ? '#f59e0b' : '#dc2626'}; font-size: 1.2em;">${foodData.freshness}%</strong>
+                            <strong style="color: ${freshnessColor === 'fresh' ? '#10b981' : freshnessColor === 'moderate' ? '#f59e0b' : '#ef4444'}; font-size: 1.2em;">${foodData.freshness}%</strong>
                         </div>
                         <p style="margin-top: 15px;">
                             <span class="tag ${freshnessColor === 'fresh' ? 'tag-success' : freshnessColor === 'moderate' ? 'tag-warning' : 'tag-danger'}">
@@ -1229,6 +1233,7 @@
             }
         }
 
+        // Initialize
         showPage('login');
     </script>
 </body>

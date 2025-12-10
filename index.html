@@ -327,6 +327,7 @@
             border: 3px dashed #cbd5e1;
             cursor: pointer;
             transition: all 0.3s;
+            margin-bottom: 20px;
         }
 
         .upload-area:hover {
@@ -344,6 +345,7 @@
             max-height: 400px;
             border-radius: 10px;
             margin: 20px 0;
+            display: block;
         }
 
         .analysis-results {
@@ -354,23 +356,31 @@
             margin-top: 20px;
         }
 
+        .analysis-results h2 {
+            color: #0f766e;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
         .result-item {
-            padding: 15px;
+            padding: 20px;
             background: #f8fafc;
             border-radius: 10px;
             margin-bottom: 15px;
+            border-left: 4px solid #14b8a6;
         }
 
         .result-item h4 {
             color: #0f766e;
             margin-bottom: 10px;
+            font-size: 1.1em;
         }
 
         .progress-bar {
             width: 100%;
-            height: 10px;
+            height: 12px;
             background: #e2e8f0;
-            border-radius: 5px;
+            border-radius: 6px;
             overflow: hidden;
             margin-top: 10px;
         }
@@ -445,12 +455,13 @@
 
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #14b8a6;
+            width: 30px;
+            height: 30px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #14b8a6;
             border-radius: 50%;
             animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
 
         @keyframes spin {
@@ -471,7 +482,7 @@
 
         .model-status {
             background: white;
-            padding: 15px;
+            padding: 15px 20px;
             border-radius: 10px;
             margin-bottom: 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -479,18 +490,20 @@
 
         .model-status.loading {
             background: #fef3c7;
+            border-left: 4px solid #f59e0b;
         }
 
         .model-status.ready {
             background: #d1fae5;
+            border-left: 4px solid #10b981;
         }
 
         .detection-box {
-            border: 3px solid #14b8a6;
+            border: 2px solid #14b8a6;
             background: rgba(20, 184, 166, 0.1);
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
-            margin: 10px 0;
+            margin: 8px 0;
         }
 
         @media (max-width: 768px) {
@@ -649,13 +662,19 @@
                 <div id="analyzeTab" class="tab-content">
                     <div class="upload-area" id="uploadArea">
                         <h2>🤖 Real AI-Powered Image Analysis</h2>
-                        <p>Using MobileNet + COCO-SSD Models</p>
+                        <p style="margin: 10px 0;">Using MobileNet + COCO-SSD Models</p>
+                        <p style="color: #64748b; font-size: 0.9em;">Click to upload or drag & drop an image</p>
                         <input type="file" id="fileInput" accept="image/*" style="display: none;">
                         <img id="previewImage" class="preview-image" style="display: none;">
                     </div>
-                    <div id="analysisResults" class="analysis-results" style="display: none;">
-                        <h2>🤖 Real AI Analysis Results</h2>
-                        <div id="resultsContent"></div>
+                    
+                    <div id="analysisResults" class="analysis-results">
+                        <h2>🤖 AI Analysis Results</h2>
+                        <div id="resultsContent">
+                            <p style="text-align: center; color: #64748b; padding: 40px;">
+                                Upload an image to see real AI analysis
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -863,7 +882,11 @@
             reader.onload = (e) => {
                 previewImage.src = e.target.result;
                 previewImage.style.display = 'block';
-                analyzeImageWithAI(previewImage);
+                
+                // Wait for image to load before analyzing
+                previewImage.onload = () => {
+                    analyzeImageWithAI(previewImage);
+                };
             };
             reader.readAsDataURL(file);
         }
@@ -875,8 +898,9 @@
                 return;
             }
 
-            document.getElementById('analysisResults').style.display = 'block';
-            document.getElementById('resultsContent').innerHTML = '<div class="loading"></div> Analyzing with real AI models...';
+            // Show loading state
+            const resultsDiv = document.getElementById('resultsContent');
+            resultsDiv.innerHTML = '<div style="text-align: center; padding: 40px;"><div class="loading"></div><p style="margin-top: 20px; color: #64748b;">Analyzing with real AI models...</p></div>';
 
             try {
                 // Run both models in parallel
@@ -919,7 +943,7 @@
                 
             } catch (error) {
                 console.error('Analysis error:', error);
-                document.getElementById('resultsContent').innerHTML = 
+                resultsDiv.innerHTML = 
                     '<div class="result-item"><h4>❌ Analysis Failed</h4><p>' + error.message + '</p></div>';
             }
         }
@@ -998,10 +1022,10 @@
             let html = `
                 <div class="result-item">
                     <h4>${typeEmoji} Detected: ${result.food}</h4>
-                    <p style="color: ${typeColor}; font-weight: 600;">Type: ${result.type.toUpperCase()}</p>
-                    <p>Category: ${result.category}</p>
-                    <p>AI Confidence: ${result.confidence}%</p>
-                    <p style="font-size: 0.85em; color: #64748b;">Algorithm: ${result.algorithm}</p>
+                    <p style="color: ${typeColor}; font-weight: 600; font-size: 1.1em; margin: 10px 0;">Type: ${result.type.toUpperCase()}</p>
+                    <p style="margin: 5px 0;"><strong>Category:</strong> ${result.category}</p>
+                    <p style="margin: 5px 0;"><strong>AI Confidence:</strong> ${result.confidence}%</p>
+                    <p style="font-size: 0.85em; color: #64748b; margin-top: 10px;">Algorithm: ${result.algorithm}</p>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${result.confidence}%"></div>
                     </div>
@@ -1009,7 +1033,7 @@
 
                 <div class="result-item">
                     <h4>✨ Freshness Score (Linear Regression)</h4>
-                    <p>${result.freshness}% Fresh</p>
+                    <p style="font-size: 1.2em; font-weight: 600; color: #0f766e; margin: 10px 0;">${result.freshness}% Fresh</p>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${result.freshness}%"></div>
                     </div>
@@ -1017,13 +1041,13 @@
 
                 <div class="result-item">
                     <h4>⏰ Predicted Shelf Life</h4>
-                    <p>${result.shelfLife} days remaining</p>
+                    <p style="font-size: 1.2em; font-weight: 600; color: #0f766e; margin: 10px 0;">${result.shelfLife} days remaining</p>
                     <p style="font-size: 0.85em; color: #64748b;">Calculated using predictive model</p>
                 </div>
 
                 <div class="result-item">
                     <h4>🎯 COCO-SSD Object Detection</h4>
-                    <p>Detected ${result.detections} object(s) in image</p>
+                    <p style="margin: 10px 0;">Detected <strong>${result.detections}</strong> object(s) in image</p>
                     ${detections.map(d => `
                         <div class="detection-box">
                             <strong>${d.class}</strong> - ${(d.score * 100).toFixed(1)}% confidence
@@ -1034,19 +1058,19 @@
                 <div class="result-item">
                     <h4>🤖 MobileNet Top Predictions</h4>
                     ${mobilePredictions.slice(0, 3).map((p, i) => `
-                        <p>${i + 1}. ${p.className} - ${(p.probability * 100).toFixed(1)}%</p>
+                        <p style="margin: 8px 0;"><strong>${i + 1}.</strong> ${p.className} - ${(p.probability * 100).toFixed(1)}%</p>
                     `).join('')}
                 </div>
 
-                <div class="result-item">
+                <div class="result-item" style="border-left-color: ${typeColor};">
                     <h4>💡 AI Recommendations</h4>
                     ${result.type === 'junk' ? 
-                        '<p style="color: #ef4444;">⚠️ This is junk food - consume in moderation</p>' :
-                        '<p style="color: #10b981;">✅ Healthy food choice!</p>'
+                        '<p style="color: #ef4444; font-weight: 600; font-size: 1.05em; margin: 10px 0;">⚠️ This is junk food - consume in moderation</p>' :
+                        '<p style="color: #10b981; font-weight: 600; font-size: 1.05em; margin: 10px 0;">✅ Healthy food choice!</p>'
                     }
-                    <p>• Store properly to maintain freshness</p>
-                    <p>• Best consumed within ${result.shelfLife} days</p>
-                    <p>• Check daily for signs of spoilage</p>
+                    <p style="margin: 5px 0;">• Store properly to maintain freshness</p>
+                    <p style="margin: 5px 0;">• Best consumed within ${result.shelfLife} days</p>
+                    <p style="margin: 5px 0;">• Check daily for signs of spoilage</p>
                 </div>
             `;
             
@@ -1080,7 +1104,7 @@
         function displayInventory() {
             const list = document.getElementById('inventoryList');
             if (inventory.length === 0) {
-                list.innerHTML = '<p style="text-align: center; color: #64748b;">No items in inventory. Start analyzing food!</p>';
+                list.innerHTML = '<p style="text-align: center; color: #64748b; padding: 40px;">No items in inventory. Start analyzing food!</p>';
                 return;
             }
 

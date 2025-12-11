@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History & Analytics - FreshScan AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e9a8a 0%, #16a085 100%);
+            color: white;
+            padding: 2rem 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 1.5rem;
+            margin-bottom: 3rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255,255,255,0.2);
+            border-left: 4px solid white;
+        }
+
+        .nav-item span {
+            font-size: 1.3rem;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding: 2rem;
+        }
+
+        .header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header h1 {
+            color: #1e9a8a;
+            font-size: 2rem;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .analytics-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .analytics-card h3 {
+            color: #1e9a8a;
+            margin-bottom: 1rem;
+        }
+
+        .chart-placeholder {
+            height: 200px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        .history-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .history-section h2 {
+            color: #1e9a8a;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1e9a8a 0%, #16a085 100%);
+            color: white;
+            border-color: #1e9a8a;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table th {
+            background: #f8f9fa;
+            padding: 1rem;
+            text-align: left;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .history-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .history-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .food-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .logout-btn {
+            position: absolute;
+            bottom: 2rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        @media (max-width: 968px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+            
+            .history-table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <span>🍎</span>
+            <span>FreshScan AI</span>
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item" onclick="window.location.href='dashboard.html'">
+                <span>📊</span>
+                <span>Dashboard</span>
+            </li>
+            <li class="nav-item" onclick="window.location.href='scan.html'">
+                <span>📸</span>
+                <span>Scan Food</span>
+            </li>
+            <li class="nav-item active">
+                <span>📈</span>
+                <span>History</span>
+            </li>
+            <li class="nav-item">
+                <span>🎯</span>
+                <span>Goals</span>
+            </li>
+            <li class="nav-item">
+                <span>⚙️</span>
+                <span>Settings</span>
+            </li>
+        </ul>
+        
+        <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>📈 History & Analytics</h1>
+            <p style="color: #666; margin-top: 0.5rem;">Track your nutrition journey</p>
+        </div>
+
+        <div class="analytics-grid">
+            <div class="analytics-card">
+                <h3>📊 Weekly Calories</h3>
+                <div class="chart-placeholder">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: #1e9a8a;" id="weeklyCalories">0</div>
+                        <div>Total Calories This Week</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h3>💪 Protein Intake</h3>
+                <div class="chart-placeholder">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: #1e9a8a;" id="totalProtein">0g</div>
+                        <div>Total Protein Consumed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h3>🎯 Goal Progress</h3>
+                <div class="chart-placeholder">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: #1e9a8a;">85%</div>
+                        <div>Daily Goal Achievement</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <h2>Scan History</h2>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterHistory('all')">All</button>
+                <button class="filter-btn" onclick="filterHistory('today')">Today</button>
+                <button class="filter-btn" onclick="filterHistory('week')">This Week</button>
+                <button class="filter-btn" onclick="filterHistory('month')">This Month</button>
+            </div>
+
+            <div id="historyContent">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <h3>No scan history yet</h3>
+                    <p>Start scanning food to see your history here</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication
+        if (!localStorage.getItem('freshscan_logged_in')) {
+            window.location.href = 'login.html';
+        }
+
+        let allScans = [];
+
+        function loadHistory() {
+            allScans = JSON.parse(localStorage.getItem('foodInventory') || '[]');
+            
+            if (allScans.length > 0) {
+                calculateAnalytics();
+                displayHistory(allScans);
+            }
+        }
+
+        function calculateAnalytics() {
+            let totalCalories = 0;
+            let totalProtein = 0;
+
+            allScans.forEach(item => {
+                totalCalories += item.calories || 0;
+                totalProtein += item.protein || 0;
+            });
+
+            document.getElementById('weeklyCalories').textContent = totalCalories;
+            document.getElementById('totalProtein').textContent = totalProtein + 'g';
+        }
+
+        function displayHistory(scans) {
+            const content = document.getElementById('historyContent');
+            
+            if (scans.length === 0) {
+                content.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <h3>No scans found</h3>
+                        <p>Try a different filter</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const table = document.createElement('table');
+            table.className = 'history-table';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Food Item</th>
+                        <th>Calories</th>
+                        <th>Protein</th>
+                        <th>Carbs</th>
+                        <th>Fat</th>
+                        <th>Freshness</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="historyBody"></tbody>
+            `;
+
+            content.innerHTML = '';
+            content.appendChild(table);
+
+            const tbody = document.getElementById('historyBody');
+            scans.reverse().forEach((item, index) => {
+                const row = document.createElement('tr');
+                const date = new Date(item.timestamp);
+                row.innerHTML = `
+                    <td>
+                        <span class="food-icon">🍽️</span>
+                        <strong>${item.name.charAt(0).toUpperCase() + item.name.slice(1)}</strong>
+                    </td>
+                    <td>${item.calories} cal</td>
+                    <td>${item.protein}g</td>
+                    <td>${item.carbs}g</td>
+                    <td>${item.fat}g</td>
+                    <td>${item.freshness}%</td>
+                    <td>${date.toLocaleDateString()} ${date.toLocaleTimeString()}</td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteItem(${allScans.length - 1 - index})">
+                            🗑️ Delete
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterHistory(filter) {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            const now = new Date();
+            let filtered = allScans;
+
+            if (filter === 'today') {
+                filtered = allScans.filter(item => {
+                    const itemDate = new Date(item.timestamp);
+                    return itemDate.toDateString() === now.toDateString();
+                });
+            } else if (filter === 'week') {
+                const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                filtered = allScans.filter(item => {
+                    const itemDate = new Date(item.timestamp);
+                    return itemDate >= weekAgo;
+                });
+            } else if (filter === 'month') {
+                const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+                filtered = allScans.filter(item => {
+                    const itemDate = new Date(item.timestamp);
+                    return itemDate >= monthAgo;
+                });
+            }
+
+            displayHistory(filtered);
+        }
+
+        function deleteItem(index) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                allScans.splice(index, 1);
+                localStorage.setItem('foodInventory', JSON.stringify(allScans));
+                loadHistory();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('freshscan_logged_in');
+            localStorage.removeItem('freshscan_session');
+            window.location.href = 'login.html';
+        }
+
+        // Load on page load
+        loadHistory();
+    </script>
+</body>
+</html>

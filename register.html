@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - FreshScan AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e9a8a 0%, #16a085 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1100px;
+            width: 100%;
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .left-panel {
+            background: linear-gradient(135deg, #1e9a8a 0%, #16a085 100%);
+            padding: 60px 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .logo span {
+            font-size: 3rem;
+        }
+
+        .left-panel h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .left-panel p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .features-list {
+            margin-top: 2rem;
+            list-style: none;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            background: rgba(255,255,255,0.2);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .right-panel {
+            padding: 60px 50px;
+            background: #f8f9fa;
+        }
+
+        .right-panel h2 {
+            color: #1e9a8a;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #1e9a8a;
+            box-shadow: 0 0 0 3px rgba(30, 154, 138, 0.1);
+        }
+
+        .password-strength {
+            height: 5px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s;
+        }
+
+        .strength-weak { background: #ff4444; width: 33%; }
+        .strength-medium { background: #ffaa00; width: 66%; }
+        .strength-strong { background: #00C851; width: 100%; }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: normal;
+            color: #666;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1e9a8a 0%, #16a085 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(30, 154, 138, 0.3);
+        }
+
+        .btn-register:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #1e9a8a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .left-panel {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="logo">
+                <span>🍎</span>
+                <span>FreshScan AI</span>
+            </div>
+            <h2>Join FreshScan AI</h2>
+            <p>Intelligent food recognition, freshness detection, and nutrition analysis powered by AI</p>
+            <ul class="features-list">
+                <li>AI-powered food recognition</li>
+                <li>Real-time nutrition analysis</li>
+                <li>Freshness detection & shelf life prediction</li>
+                <li>Personalized health recommendations</li>
+                <li>Track your nutrition goals</li>
+            </ul>
+        </div>
+
+        <div class="right-panel">
+            <h2>Create Account</h2>
+            <p class="subtitle">Start your journey to smarter eating</p>
+
+            <div class="success-message" id="successMessage">
+                ✓ Account created successfully! Redirecting to login...
+            </div>
+
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                    <div class="error-message" id="nameError">Please enter your full name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message" id="emailError">Please enter a valid email</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strengthBar"></div>
+                    </div>
+                    <div class="error-message" id="passwordError">Password must be at least 8 characters</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <div class="error-message" id="confirmError">Passwords do not match</div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the Terms & Conditions</label>
+                </div>
+
+                <button type="submit" class="btn-register">Create Account</button>
+            </form>
+
+            <div class="login-link">
+                Already have an account? <a href="login.html">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('registerForm');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const strengthBar = document.getElementById('strengthBar');
+
+        // Password strength checker
+        password.addEventListener('input', function() {
+            const value = this.value;
+            let strength = 0;
+
+            if (value.length >= 8) strength++;
+            if (value.match(/[a-z]/) && value.match(/[A-Z]/)) strength++;
+            if (value.match(/[0-9]/)) strength++;
+            if (value.match(/[^a-zA-Z0-9]/)) strength++;
+
+            strengthBar.className = 'password-strength-bar';
+            if (strength <= 2) strengthBar.classList.add('strength-weak');
+            else if (strength === 3) strengthBar.classList.add('strength-medium');
+            else strengthBar.classList.add('strength-strong');
+        });
+
+        // Form validation
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            
+            // Reset errors
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+
+            // Validate full name
+            const fullName = document.getElementById('fullName').value.trim();
+            if (fullName.length < 2) {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validate email
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validate password
+            const pwd = password.value;
+            if (pwd.length < 8) {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validate password match
+            if (pwd !== confirmPassword.value) {
+                document.getElementById('confirmError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Store user data
+                const userData = {
+                    fullName: fullName,
+                    email: email,
+                    password: pwd,
+                    registeredAt: new Date().toISOString()
+                };
+                
+                localStorage.setItem('freshscan_user', JSON.stringify(userData));
+                
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Redirect to login
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

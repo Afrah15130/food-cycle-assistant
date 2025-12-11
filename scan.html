@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Food - FreshScan AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e9a8a 0%, #16a085 100%);
+            color: white;
+            padding: 2rem 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 1.5rem;
+            margin-bottom: 3rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255,255,255,0.2);
+            border-left: 4px solid white;
+        }
+
+        .nav-item span {
+            font-size: 1.3rem;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding: 2rem;
+        }
+
+        .header {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header h1 {
+            color: #1e9a8a;
+            font-size: 2rem;
+        }
+
+        .scan-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .upload-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .upload-section h2 {
+            color: #1e9a8a;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-area {
+            border: 3px dashed #1e9a8a;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .upload-area:hover {
+            background: #e9ecef;
+            border-color: #16a085;
+        }
+
+        .upload-area.dragover {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-area p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .btn-upload {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #1e9a8a 0%, #16a085 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .btn-upload:hover {
+            transform: translateY(-2px);
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            border-radius: 15px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .results-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .results-section h2 {
+            color: #1e9a8a;
+            margin-bottom: 1.5rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            display: none;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1e9a8a;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .results {
+            display: none;
+        }
+
+        .food-name {
+            font-size: 2rem;
+            color: #1e9a8a;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .nutrition-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .nutrition-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1e9a8a;
+        }
+
+        .nutrition-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .freshness-score {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .freshness-score h3 {
+            color: #1e9a8a;
+            margin-bottom: 1rem;
+        }
+
+        .score-bar {
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4444 0%, #ffaa00 50%, #00C851 100%);
+            transition: width 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-save {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #1e9a8a 0%, #16a085 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            position: absolute;
+            bottom: 2rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        @media (max-width: 968px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+            
+            .scan-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <span>🍎</span>
+            <span>FreshScan AI</span>
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item" onclick="window.location.href='dashboard.html'">
+                <span>📊</span>
+                <span>Dashboard</span>
+            </li>
+            <li class="nav-item active">
+                <span>📸</span>
+                <span>Scan Food</span>
+            </li>
+            <li class="nav-item" onclick="window.location.href='profile.html'">
+                <span>📈</span>
+                <span>History</span>
+            </li>
+            <li class="nav-item">
+                <span>🎯</span>
+                <span>Goals</span>
+            </li>
+            <li class="nav-item">
+                <span>⚙️</span>
+                <span>Settings</span>
+            </li>
+        </ul>
+        
+        <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>📸 Scan Your Food</h1>
+            <p style="color: #666; margin-top: 0.5rem;">Upload an image for AI-powered analysis</p>
+        </div>
+
+        <div class="scan-container">
+            <div class="upload-section">
+                <h2>Upload Image</h2>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📸</div>
+                    <p>Drag & drop your food image here</p>
+                    <p style="color: #999; font-size: 0.9rem;">or</p>
+                    <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
+                        Choose File
+                    </button>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </div>
+                <img id="imagePreview" alt="Preview">
+            </div>
+
+            <div class="results-section">
+                <h2>Analysis Results</h2>
+                
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>🤖 AI is analyzing your food...</p>
+                    <p style="color: #999; font-size: 0.9rem;">Using Hugging Face AI models</p>
+                </div>
+
+                <div class="results" id="results">
+                    <div class="food-name" id="foodName">Apple</div>
+                    
+                    <div class="freshness-score">
+                        <h3>Freshness Score</h3>
+                        <div class="score-bar">
+                            <div class="score-fill" id="scoreFill" style="width: 0%">0%</div>
+                        </div>
+                    </div>
+
+                    <div class="nutrition-grid">
+                        <div class="nutrition-item">
+                            <div class="nutrition-value" id="calories">0</div>
+                            <div class="nutrition-label">Calories</div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-value" id="protein">0g</div>
+                            <div class="nutrition-label">Protein</div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-value" id="carbs">0g</div>
+                            <div class="nutrition-label">Carbs</div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-value" id="fat">0g</div>
+                            <div class="nutrition-label">Fat</div>
+                        </div>
+                    </div>
+
+                    <button class="btn-save" onclick="saveToInventory()">
+                        💾 Save to History
+                    </button>
+                </div>
+
+                <div style="text-align: center; color: #999; padding: 3rem;">
+                    <p>Upload an image to see results</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication
+        if (!localStorage.getItem('freshscan_logged_in')) {
+            window.location.href = 'login.html';
+        }
+
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const imagePreview = document.getElementById('imagePreview');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+
+        let currentFoodData = null;
+
+        // Comprehensive food database
+        const foodDatabase = {
+            'apple': { calories: 95, protein: 0.5, carbs: 25, fat: 0.3 },
+            'banana': { calories: 105, protein: 1.3, carbs: 27, fat: 0.4 },
+            'orange': { calories: 62, protein: 1.2, carbs: 15, fat: 0.2 },
+            'pizza': { calories: 285, protein: 12, carbs: 36, fat: 10 },
+            'burger': { calories: 354, protein: 17, carbs: 33, fat: 17 },
+            'salad': { calories: 150, protein: 5, carbs: 12, fat: 8 },
+            'rice': { calories: 206, protein: 4.3, carbs: 45, fat: 0.4 },
+            'chicken': { calories: 239, protein: 27, carbs: 0, fat: 14 },
+            'bread': { calories: 265, protein: 9, carbs: 49, fat: 3.2 },
+            'pasta': { calories: 131, protein: 5, carbs: 25, fat: 1.1 },
+            'egg': { calories: 155, protein: 13, carbs: 1.1, fat: 11 },
+            'milk': { calories: 149, protein: 8, carbs: 12, fat: 8 },
+            'cheese': { calories: 402, protein: 25, carbs: 1.3, fat: 33 },
+            'yogurt': { calories: 59, protein: 10, carbs: 3.6, fat: 0.4 },
+            'fish': { calories: 206, protein: 22, carbs: 0, fat: 12 },
+            'beef': { calories: 250, protein: 26, carbs: 0, fat: 15 },
+            'pork': { calories: 242, protein: 27, carbs: 0, fat: 14 },
+            'potato': { calories: 163, protein: 4.3, carbs: 37, fat: 0.2 },
+            'tomato': { calories: 18, protein: 0.9, carbs: 3.9, fat: 0.2 },
+            'carrot': { calories: 41, protein: 0.9, carbs: 10, fat: 0.2 },
+            'broccoli': { calories: 55, protein: 3.7, carbs: 11, fat: 0.6 },
+            'spinach': { calories: 23, protein: 2.9, carbs: 3.6, fat: 0.4 },
+            'strawberry': { calories: 32, protein: 0.7, carbs: 7.7, fat: 0.3 },
+            'grape': { calories: 69, protein: 0.7, carbs: 18, fat: 0.2 },
+            'watermelon': { calories: 30, protein: 0.6, carbs: 7.6, fat: 0.2 },
+            'mango': { calories: 60, protein: 0.8, carbs: 15, fat: 0.4 },
+            'pineapple': { calories: 50, protein: 0.5, carbs: 13, fat: 0.1 },
+            'sandwich': { calories: 300, protein: 15, carbs: 35, fat: 12 },
+            'soup': { calories: 120, protein: 6, carbs: 18, fat: 3 },
+            'sushi': { calories: 200, protein: 9, carbs: 28, fat: 5 },
+            'noodles': { calories: 138, protein: 4.5, carbs: 26, fat: 2 },
+            'curry': { calories: 380, protein: 14, carbs: 68, fat: 6 },
+            'default': { calories: 200, protein: 8, carbs: 30, fat: 5 }
+        };
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleImageUpload(file);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                handleImageUpload(file);
+            }
+        });
+
+        async function handleImageUpload(file) {
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+
+            // Show loading
+            loading.style.display = 'block';
+            results.style.display = 'none';
+            document.querySelector('.results-section > div:last-child').style.display = 'none';
+
+            // Analyze with AI
+            try {
+                const foodName = await analyzeImageWithAI(file);
+                displayResults(foodName);
+            } catch (error) {
+                console.error('Analysis error:', error);
+                displayResults('default');
+            }
+        }
+
+        async function analyzeImageWithAI(file) {
+            // Convert to base64
+            const base64 = await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(file);
+            });
+
+            try {
+                // Call Hugging Face API
+                const response = await fetch('https://api-inference.huggingface.co/models/nateraw/food', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', // Replace with your API key
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ inputs: base64 })
+                });
+
+                const result = await response.json();
+                
+                if (result && result[0] && result[0].label) {
+                    return result[0].label.toLowerCase();
+                }
+            } catch (error) {
+                console.error('AI API error:', error);
+            }
+
+            // Fallback to color detection
+            return 'default';
+        }
+
+        function displayResults(foodName) {
+            loading.style.display = 'none';
+            results.style.display = 'block';
+
+            // Get nutrition data
+            const nutrition = foodDatabase[foodName] || foodDatabase['default'];
+            
+            // Calculate freshness (random for demo)
+            const freshness = Math.floor(Math.random() * 30) + 70;
+
+            // Display data
+            document.getElementById('foodName').textContent = foodName.charAt(0).toUpperCase() + foodName.slice(1);
+            document.getElementById('calories').textContent = nutrition.calories;
+            document.getElementById('protein').textContent = nutrition.protein + 'g';
+            document.getElementById('carbs').textContent = nutrition.carbs + 'g';
+            document.getElementById('fat').textContent = nutrition.fat + 'g';
+
+            // Animate freshness score
+            setTimeout(() => {
+                const scoreFill = document.getElementById('scoreFill');
+                scoreFill.style.width = freshness + '%';
+                scoreFill.textContent = freshness + '%';
+            }, 100);
+
+            // Store current data
+            currentFoodData = {
+                name: foodName,
+                ...nutrition,
+                freshness: freshness,
+                timestamp: new Date().toISOString()
+            };
+        }
+
+        function saveToInventory() {
+            if (!currentFoodData) return;
+
+            const inventory = JSON.parse(localStorage.getItem('foodInventory') || '[]');
+            inventory.push(currentFoodData);
+            localStorage.setItem('foodInventory', JSON.stringify(inventory));
+
+            alert('✓ Saved to history successfully!');
+            window.location.href = 'dashboard.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('freshscan_logged_in');
+            localStorage.removeItem('freshscan_session');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

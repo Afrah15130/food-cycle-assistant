@@ -1,4 +1,4 @@
-# 🍎 FreshScan AI - Smart Food Recognition Platform
+# FreshScan AI - Smart Food Recognition Platform
 
 **AI-powered food recognition, freshness detection, and nutrition analysis platform**
 
@@ -280,4 +280,4 @@ For issues or questions:
 
 **Made with ❤️ using AI-powered technology**
 
-🍎 **FreshScan AI** - *Eat Smart, Live Healthy*
+**FreshScan AI** - *Eat Smart, Live Healthy*

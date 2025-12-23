@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FreshScan - AI Food Analysis System</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
             margin: 0;
@@ -287,6 +288,7 @@
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 0.9em;
         }
 
         .mode-btn.active {
@@ -326,6 +328,66 @@
             display: block;
         }
 
+        /* Daily Quote */
+        .daily-quote {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+            text-align: center;
+        }
+
+        .daily-quote h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .daily-quote p {
+            font-size: 1.2em;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* Stats Dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .stat-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: 700;
+            color: #0f766e;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            color: #64748b;
+            font-size: 0.95em;
+        }
+
+        /* Food Grid */
         .food-selector {
             background: white;
             border-radius: 20px;
@@ -343,8 +405,8 @@
 
         .food-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
             margin-bottom: 30px;
         }
 
@@ -352,7 +414,7 @@
             background: #f8fafc;
             border: 3px solid #e2e8f0;
             border-radius: 15px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
@@ -370,22 +432,23 @@
         }
 
         .food-item .emoji {
-            font-size: 3em;
-            margin-bottom: 10px;
+            font-size: 2.5em;
+            margin-bottom: 8px;
         }
 
         .food-item .name {
             font-weight: 600;
             color: #0f172a;
-            font-size: 1.1em;
+            font-size: 0.95em;
         }
 
         .food-item .type {
-            font-size: 0.85em;
+            font-size: 0.75em;
             color: #64748b;
-            margin-top: 5px;
+            margin-top: 3px;
         }
 
+        /* Upload Section */
         .upload-section {
             background: white;
             border-radius: 20px;
@@ -397,7 +460,7 @@
         .upload-card {
             border: 3px dashed #cbd5e1;
             border-radius: 15px;
-            padding: 60px 40px;
+            padding: 50px 30px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -418,30 +481,30 @@
         }
 
         .upload-icon {
-            font-size: 5em;
-            margin-bottom: 25px;
+            font-size: 4em;
+            margin-bottom: 20px;
         }
 
         .upload-card h2 {
             color: #0f172a;
-            margin-bottom: 15px;
-            font-size: 1.8em;
+            margin-bottom: 12px;
+            font-size: 1.6em;
             font-weight: 700;
         }
 
         .upload-card p {
             color: #64748b;
-            margin-bottom: 30px;
-            font-size: 1.1em;
+            margin-bottom: 25px;
+            font-size: 1em;
         }
 
         .upload-btn {
             background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
             color: white;
             border: none;
-            padding: 16px 40px;
+            padding: 14px 35px;
             border-radius: 10px;
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -455,32 +518,6 @@
 
         #fileInput {
             display: none;
-        }
-
-        .ai-models-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .model-card {
-            background: #f8fafc;
-            border-left: 4px solid #14b8a6;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .model-card h4 {
-            color: #0f766e;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-        }
-
-        .model-card p {
-            color: #64748b;
-            font-size: 0.95em;
-            line-height: 1.6;
         }
 
         .preview-section {
@@ -512,6 +549,7 @@
             flex-wrap: wrap;
         }
 
+        /* Processing Steps */
         .processing-steps {
             background: white;
             border-radius: 20px;
@@ -529,8 +567,8 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 20px;
-            margin-bottom: 15px;
+            padding: 18px;
+            margin-bottom: 12px;
             background: #f8fafc;
             border-radius: 12px;
             border-left: 4px solid #e2e8f0;
@@ -548,9 +586,9 @@
         }
 
         .step-icon {
-            font-size: 2em;
-            width: 50px;
-            height: 50px;
+            font-size: 1.8em;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -561,18 +599,18 @@
 
         .step-content h4 {
             color: #0f172a;
-            margin-bottom: 5px;
-            font-size: 1.1em;
+            margin-bottom: 4px;
+            font-size: 1em;
         }
 
         .step-content p {
             color: #64748b;
-            font-size: 0.95em;
+            font-size: 0.9em;
         }
 
         .step-loader {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             border: 3px solid #f3f4f6;
             border-top: 3px solid #14b8a6;
             border-radius: 50%;
@@ -584,17 +622,18 @@
             display: block;
         }
 
+        /* Results */
         .results-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
             margin-top: 40px;
         }
 
         .result-card {
             background: white;
             border-radius: 20px;
-            padding: 35px;
+            padding: 30px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             animation: slideUp 0.5s ease;
@@ -618,50 +657,50 @@
 
         .result-card h3 {
             color: #0f172a;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 1.4em;
+            gap: 10px;
+            font-size: 1.3em;
             font-weight: 700;
         }
 
         .result-card .icon {
-            font-size: 1.6em;
+            font-size: 1.5em;
         }
 
         .confidence-score {
             background: #f0fdfa;
-            padding: 15px;
+            padding: 12px;
             border-radius: 10px;
-            margin: 15px 0;
+            margin: 12px 0;
             border-left: 4px solid #14b8a6;
         }
 
         .confidence-score strong {
             color: #0f766e;
-            font-size: 1.1em;
+            font-size: 1em;
         }
 
         .freshness-indicator {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin: 15px 0;
+            gap: 12px;
+            margin: 12px 0;
         }
 
         .freshness-bar {
             flex: 1;
-            height: 24px;
+            height: 22px;
             background: #e2e8f0;
-            border-radius: 12px;
+            border-radius: 11px;
             overflow: hidden;
         }
 
         .freshness-fill {
             height: 100%;
             transition: width 1.5s ease;
-            border-radius: 12px;
+            border-radius: 11px;
         }
 
         .fresh { background: linear-gradient(90deg, #10b981 0%, #34d399 100%); }
@@ -670,48 +709,25 @@
 
         .nutrition-table {
             width: 100%;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .nutrition-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #f1f5f9;
-            font-size: 1.05em;
+            font-size: 0.95em;
         }
 
         .nutrition-row:last-child {
             border-bottom: none;
         }
 
-        .shelf-life-timeline {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f8fafc;
-            border-radius: 12px;
-        }
-
-        .timeline-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 15px 0;
-            font-size: 1.05em;
-        }
-
-        .timeline-dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #14b8a6;
-            flex-shrink: 0;
-        }
-
         .loading {
             display: none;
             text-align: center;
-            padding: 60px;
+            padding: 50px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -721,10 +737,10 @@
             border: 5px solid #f1f5f9;
             border-top: 5px solid #14b8a6;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 25px;
+            margin: 0 auto 20px;
         }
 
         @keyframes spin {
@@ -734,10 +750,10 @@
 
         .tag {
             display: inline-block;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin: 5px 5px 5px 0;
+            padding: 5px 14px;
+            border-radius: 18px;
+            font-size: 0.85em;
+            margin: 4px 4px 4px 0;
             font-weight: 600;
         }
 
@@ -749,182 +765,149 @@
         .llm-badge {
             background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85em;
+            padding: 7px 14px;
+            border-radius: 18px;
+            font-size: 0.8em;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 10px;
+            gap: 7px;
+            margin-top: 8px;
         }
 
-        /* Chat Assistant */
-        .chat-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
-            color: white;
-            border: none;
-            font-size: 2em;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(20, 184, 166, 0.4);
-            transition: all 0.3s;
-            z-index: 1000;
-            display: none;
-        }
-
-        .chat-button.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .chat-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 35px rgba(20, 184, 166, 0.5);
-        }
-
-        .chat-window {
-            position: fixed;
-            bottom: 110px;
-            right: 30px;
-            width: 400px;
-            height: 550px;
+        /* History Section */
+        .history-section {
             background: white;
             border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
-            display: none;
-            flex-direction: column;
-            z-index: 1000;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
-        .chat-window.active {
-            display: flex;
+        .history-section h2 {
+            color: #0f172a;
+            margin-bottom: 25px;
+            font-size: 1.8em;
         }
 
-        .chat-header {
-            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 20px 20px 0 0;
+        .history-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 20px;
+            padding: 18px;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .chat-header h3 {
-            font-size: 1.3em;
+        .history-item:hover {
+            background: #f0fdfa;
+            transform: translateX(5px);
+        }
+
+        .history-item .emoji {
+            font-size: 2.5em;
+        }
+
+        .history-item .details {
+            flex: 1;
+        }
+
+        .history-item .details h4 {
+            color: #0f172a;
+            margin-bottom: 5px;
+        }
+
+        .history-item .details p {
+            color: #64748b;
+            font-size: 0.9em;
+        }
+
+        .history-item .score {
+            font-size: 1.5em;
             font-weight: 700;
         }
 
-        .chat-close {
-            background: rgba(255,255,255,0.2);
-            border: none;
+        .history-item .score.healthy {
+            color: #10b981;
+        }
+
+        .history-item .score.unhealthy {
+            color: #ef4444;
+        }
+
+        /* Diet Plans */
+        .diet-plans {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .diet-plans h2 {
+            color: #0f172a;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .diet-plan-card {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #14b8a6;
+        }
+
+        .diet-plan-card h3 {
+            color: #0f766e;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .diet-plan-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .diet-plan-card li {
+            padding: 10px 0;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .diet-plan-card li::before {
+            content: "✓";
+            background: #14b8a6;
             color: white;
-            font-size: 1.5em;
-            cursor: pointer;
-            width: 35px;
-            height: 35px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
+            font-size: 0.8em;
+            font-weight: bold;
+            flex-shrink: 0;
         }
 
-        .chat-close:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 25px;
-            overflow-y: auto;
-            background: #f8fafc;
-        }
-
-        .chat-message {
-            margin-bottom: 18px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .chat-message.bot {
-            text-align: left;
-        }
-
-        .chat-message.user {
-            text-align: right;
-        }
-
-        .message-bubble {
-            display: inline-block;
-            padding: 14px 20px;
-            border-radius: 18px;
-            max-width: 80%;
-            word-wrap: break-word;
-            font-size: 0.98em;
-            line-height: 1.5;
-        }
-
-        .chat-message.bot .message-bubble {
+        /* Charts */
+        .chart-container {
             background: white;
-            color: #334155;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
-        .chat-message.user .message-bubble {
-            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
-            color: white;
-        }
-
-        .chat-input-area {
-            padding: 20px;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            gap: 12px;
-            background: white;
-            border-radius: 0 0 20px 20px;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 12px 18px;
-            border: 2px solid #e2e8f0;
-            border-radius: 25px;
-            font-size: 0.95em;
-            transition: all 0.3s;
-        }
-
-        .chat-input:focus {
-            outline: none;
-            border-color: #14b8a6;
-            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
-        }
-
-        .chat-send {
-            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .chat-send:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+        .chart-container h2 {
+            color: #0f172a;
+            margin-bottom: 25px;
+            font-size: 1.8em;
         }
 
         @media (max-width: 968px) {
@@ -940,34 +923,20 @@
                 padding: 15px 20px;
             }
 
-            .navbar-brand .brand-text h1 {
-                font-size: 1.2em;
-            }
-
             .main-content {
                 padding: 20px;
             }
 
             .food-grid {
-                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            }
-
-            .upload-card {
-                padding: 40px 20px;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             }
 
             .results-section {
                 grid-template-columns: 1fr;
             }
 
-            .ai-models-info {
-                grid-template-columns: 1fr;
-            }
-
-            .chat-window {
-                width: calc(100% - 40px);
-                right: 20px;
-                bottom: 100px;
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -979,14 +948,14 @@
             <div class="login-container">
                 <div class="login-left">
                     <h1>🔍 FreshScan</h1>
-                    <p class="subtitle">Advanced LLM-powered food analysis system using Gemini AI and deep learning models for intelligent freshness detection and nutritional insights.</p>
+                    <p class="subtitle">Advanced AI-powered food analysis with Gemini Vision, health tracking, personalized diet plans, and daily wellness insights.</p>
                     
                     <ul class="feature-list">
-                        <li>Gemini LLM Vision Analysis</li>
-                        <li>Real-time AI freshness scoring</li>
-                        <li>Intelligent food classification</li>
-                        <li>Smart nutritional recommendations</li>
-                        <li>24/7 AI assistant support</li>
+                        <li>Real Gemini Vision AI Analysis</li>
+                        <li>Analysis History & Graphs</li>
+                        <li>Daily Health Quotes</li>
+                        <li>Personalized Diet Plans</li>
+                        <li>Nutritional Tracking</li>
                     </ul>
                 </div>
                 <div class="login-right">
@@ -1055,13 +1024,16 @@
                     <span class="logo">🔍</span>
                     <div class="brand-text">
                         <h1>FreshScan</h1>
-                        <p>Gemini LLM Powered</p>
+                        <p>Gemini AI Powered</p>
                     </div>
                 </div>
                 <div class="navbar-right">
                     <div class="mode-toggle">
-                        <button class="mode-btn active" onclick="switchMode('quick')">Quick Scan</button>
-                        <button class="mode-btn" onclick="switchMode('advanced')">LLM Upload</button>
+                        <button class="mode-btn active" onclick="switchMode('dashboard')">Dashboard</button>
+                        <button class="mode-btn" onclick="switchMode('quick')">Quick Scan</button>
+                        <button class="mode-btn" onclick="switchMode('advanced')">AI Upload</button>
+                        <button class="mode-btn" onclick="switchMode('history')">History</button>
+                        <button class="mode-btn" onclick="switchMode('diet')">Diet Plans</button>
                     </div>
                     <div class="user-badge">
                         <span>👤</span>
@@ -1072,178 +1044,88 @@
             </nav>
 
             <div class="main-content">
-                <div class="content-header">
-                    <h1>AI Food Analysis Dashboard</h1>
-                    <p id="modeDescription">Select a food item for instant analysis</p>
-                </div>
+                <!-- Dashboard Mode -->
+                <div id="dashboardMode" class="mode-section active">
+                    <div class="content-header">
+                        <h1>Health Dashboard</h1>
+                        <p>Track your nutrition and wellness journey</p>
+                    </div>
 
-                <!-- Quick Scan Mode -->
-                <div id="quickMode" class="mode-section active">
-                    <div class="food-selector">
-                        <h2>Quick Scan - Pre-trained Models</h2>
-                        <div class="food-grid" id="foodGrid">
-                            <!-- Healthy Foods -->
-                            <div class="food-item" onclick="selectFood('salad')">
-                                <div class="emoji">🥗</div>
-                                <div class="name">Salad</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('apple')">
-                                <div class="emoji">🍎</div>
-                                <div class="name">Apple</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('banana')">
-                                <div class="emoji">🍌</div>
-                                <div class="name">Banana</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('broccoli')">
-                                <div class="emoji">🥦</div>
-                                <div class="name">Broccoli</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('carrot')">
-                                <div class="emoji">🥕</div>
-                                <div class="name">Carrot</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('tomato')">
-                                <div class="emoji">🍅</div>
-                                <div class="name">Tomato</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('orange')">
-                                <div class="emoji">🍊</div>
-                                <div class="name">Orange</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('strawberry')">
-                                <div class="emoji">🍓</div>
-                                <div class="name">Strawberry</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('grapes')">
-                                <div class="emoji">🍇</div>
-                                <div class="name">Grapes</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('avocado')">
-                                <div class="emoji">🥑</div>
-                                <div class="name">Avocado</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('spinach')">
-                                <div class="emoji">🥬</div>
-                                <div class="name">Spinach</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('cucumber')">
-                                <div class="emoji">🥒</div>
-                                <div class="name">Cucumber</div>
-                                <div class="type">Healthy</div>
-                            </div>
-                            
-                            <!-- Junk Foods -->
-                            <div class="food-item" onclick="selectFood('pizza')">
-                                <div class="emoji">🍕</div>
-                                <div class="name">Pizza</div>
-                                <div class="type">Junk Food</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('burger')">
-                                <div class="emoji">🍔</div>
-                                <div class="name">Burger</div>
-                                <div class="type">Junk Food</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('fries')">
-                                <div class="emoji">🍟</div>
-                                <div class="name">Fries</div>
-                                <div class="type">Junk Food</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('donut')">
-                                <div class="emoji">🍩</div>
-                                <div class="name">Donut</div>
-                                <div class="type">Junk Food</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('chips')">
-                                <div class="emoji">🥨</div>
-                                <div class="name">Chips</div>
-                                <div class="type">Junk Food</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('candy')">
-                                <div class="emoji">🍬</div>
-                                <div class="name">Candy</div>
-                                <div class="type">Junk Food</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('soda')">
-                                <div class="emoji">🥤</div>
-                                <div class="name">Soda</div>
-                                <div class="type">Junk Food</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('cake')">
-                                <div class="emoji">🍰</div>
-                                <div class="name">Cake</div>
-                                <div class="type">Junk Food</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('cookie')">
-                                <div class="emoji">🍪</div>
-                                <div class="name">Cookie</div>
-                                <div class="type">Junk Food</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('icecream')">
-                                <div class="emoji">🍦</div>
-                                <div class="name">Ice Cream</div>
-                                <div class="type">Junk Food</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('hotdog')">
-                                <div class="emoji">🌭</div>
-                                <div class="name">Hot Dog</div>
-                                <div class="type">Junk Food</div>
-                            </div>
-                            <div class="food-item" onclick="selectFood('popcorn')">
-                                <div class="emoji">🍿</div>
-                                <div class="name">Popcorn</div>
-                                <div class="type">Junk Food</div>
-                            </div>
+                    <!-- Daily Quote -->
+                    <div class="daily-quote">
+                        <h3>💡 Daily Health Quote</h3>
+                        <p id="dailyQuote"></p>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="icon">📊</div>
+                            <div class="value" id="totalScans">0</div>
+                            <div class="label">Total Scans</div>
                         </div>
+                        <div class="stat-card">
+                            <div class="icon">🌿</div>
+                            <div class="value" id="healthyCount">0</div>
+                            <div class="label">Healthy Foods</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="icon">⚠️</div>
+                            <div class="value" id="junkCount">0</div>
+                            <div class="label">Junk Foods</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="icon">📈</div>
+                            <div class="value" id="avgScore">0%</div>
+                            <div class="label">Avg Health Score</div>
+                        </div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div class="chart-container">
+                        <h2>📈 Weekly Analysis Trend</h2>
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <h2>🥧 Food Category Distribution</h2>
+                        <canvas id="categoryChart"></canvas>
                     </div>
                 </div>
 
-                <!-- Advanced LLM Upload Mode -->
+                <!-- Quick Scan Mode -->
+                <div id="quickMode" class="mode-section">
+                    <div class="content-header">
+                        <h1>Quick Food Scan</h1>
+                        <p>Select a food item for instant analysis</p>
+                    </div>
+
+                    <div class="food-selector">
+                        <h2>Choose Food Item</h2>
+                        <div class="food-grid" id="foodGrid"></div>
+                    </div>
+                </div>
+
+                <!-- Advanced AI Upload Mode -->
                 <div id="advancedMode" class="mode-section">
+                    <div class="content-header">
+                        <h1>Gemini AI Vision Analysis</h1>
+                        <p>Upload your food image for intelligent AI analysis</p>
+                    </div>
+
                     <div class="upload-section">
-                        <h2 style="text-align: center; color: #0f172a; margin-bottom: 10px;">Gemini LLM Vision Analysis</h2>
-                        <div class="llm-badge" style="display: flex; justify-content: center; margin-bottom: 30px;">
-                            <span>🤖 Powered by Google Gemini AI - Real Image Analysis</span>
+                        <div class="llm-badge" style="display: flex; justify-content: center; margin-bottom: 25px;">
+                            <span>🤖 Powered by Google Gemini Vision AI</span>
                         </div>
                         
                         <div class="upload-card" id="uploadCard" onclick="document.getElementById('fileInput').click()">
                             <div class="upload-icon">📸</div>
-                            <h2>Upload Your Food Picture Here</h2>
+                            <h2>Upload Your Food Picture</h2>
                             <p>Gemini AI will analyze your actual food image</p>
                             <input type="file" id="fileInput" accept="image/*">
                             <button class="upload-btn" type="button">
                                 📁 Browse Files
                             </button>
-                        </div>
-
-                        <div class="ai-models-info">
-                            <div class="model-card">
-                                <h4>🧠 Gemini Vision LLM</h4>
-                                <p>Advanced multimodal AI that understands images and provides intelligent food analysis with natural language reasoning</p>
-                            </div>
-                            <div class="model-card">
-                                <h4>🔬 Smart Freshness Scoring</h4>
-                                <p>LLM-powered analysis that evaluates food quality, freshness, and health impact with contextual understanding</p>
-                            </div>
-                            <div class="model-card">
-                                <h4>📊 Intelligent Nutrition</h4>
-                                <p>AI-driven nutritional breakdown with personalized health recommendations based on food type and quality</p>
-                            </div>
-                            <div class="model-card">
-                                <h4>⏰ Predictive Insights</h4>
-                                <p>Machine learning algorithms predict shelf life and provide storage recommendations using historical data</p>
-                            </div>
                         </div>
                     </div>
 
@@ -1257,13 +1139,13 @@
                     </div>
 
                     <div class="processing-steps" id="processingSteps">
-                        <h3 style="color: #0f172a; margin-bottom: 25px; text-align: center;">Gemini LLM Processing Pipeline</h3>
+                        <h3 style="color: #0f172a; margin-bottom: 20px; text-align: center;">Gemini AI Processing</h3>
                         
                         <div class="step" id="step1">
                             <div class="step-icon">📥</div>
                             <div class="step-content">
                                 <h4>Image Preprocessing</h4>
-                                <p>Optimizing image for LLM vision analysis</p>
+                                <p>Optimizing for AI analysis</p>
                             </div>
                             <div class="step-loader"></div>
                         </div>
@@ -1272,7 +1154,7 @@
                             <div class="step-icon">🤖</div>
                             <div class="step-content">
                                 <h4>Gemini Vision Analysis</h4>
-                                <p>LLM analyzing food content and quality</p>
+                                <p>AI analyzing food content</p>
                             </div>
                             <div class="step-loader"></div>
                         </div>
@@ -1280,8 +1162,8 @@
                         <div class="step" id="step3">
                             <div class="step-icon">🔍</div>
                             <div class="step-content">
-                                <h4>Intelligent Classification</h4>
-                                <p>AI determining food type and health category</p>
+                                <h4>Food Classification</h4>
+                                <p>Identifying food type</p>
                             </div>
                             <div class="step-loader"></div>
                         </div>
@@ -1289,8 +1171,8 @@
                         <div class="step" id="step4">
                             <div class="step-icon">📊</div>
                             <div class="step-content">
-                                <h4>Nutritional Intelligence</h4>
-                                <p>LLM generating personalized insights</p>
+                                <h4>Nutritional Analysis</h4>
+                                <p>Generating insights</p>
                             </div>
                             <div class="step-loader"></div>
                         </div>
@@ -1299,17 +1181,40 @@
                             <div class="step-icon">✅</div>
                             <div class="step-content">
                                 <h4>Analysis Complete</h4>
-                                <p>Generating comprehensive AI report</p>
+                                <p>Preparing results</p>
                             </div>
                             <div class="step-loader"></div>
                         </div>
                     </div>
                 </div>
 
+                <!-- History Mode -->
+                <div id="historyMode" class="mode-section">
+                    <div class="content-header">
+                        <h1>Analysis History</h1>
+                        <p>View your past food scans</p>
+                    </div>
+
+                    <div class="history-section">
+                        <h2>📜 Recent Scans</h2>
+                        <div id="historyList"></div>
+                    </div>
+                </div>
+
+                <!-- Diet Plans Mode -->
+                <div id="dietMode" class="mode-section">
+                    <div class="content-header">
+                        <h1>Personalized Diet Plans</h1>
+                        <p>Achieve your health goals with expert nutrition plans</p>
+                    </div>
+
+                    <div class="diet-plans" id="dietPlans"></div>
+                </div>
+
                 <div class="loading" id="loading">
                     <div class="spinner"></div>
-                    <h3 style="color: #0f766e; margin-bottom: 10px;">Running Gemini LLM Analysis...</h3>
-                    <p style="color: #64748b;">AI is analyzing your food image</p>
+                    <h3 style="color: #0f766e; margin-bottom: 10px;">Running Gemini AI Analysis...</h3>
+                    <p style="color: #64748b;">Processing your food image</p>
                 </div>
 
                 <div id="results"></div>
@@ -1317,83 +1222,135 @@
         </div>
     </div>
 
-    <!-- Chat Assistant -->
-    <button class="chat-button" id="chatButton" onclick="toggleChat()">💬</button>
-    
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <h3>🤖 Gemini Assistant</h3>
-            <button class="chat-close" onclick="toggleChat()">×</button>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="chat-message bot">
-                <div class="message-bubble">
-                    Hi! I'm your Gemini-powered Food Assistant. Ask me about food analysis, nutrition, storage, or our LLM technology! 🍎
-                </div>
-            </div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything..." onkeypress="handleChatKeyPress(event)">
-            <button class="chat-send" onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-
     <script>
         let currentUser = null;
-        let selectedFood = null;
-        let currentMode = 'quick';
+        let currentMode = 'dashboard';
         let uploadedImage = null;
-        let uploadedImageData = null;
+        let analysisHistory = [];
+        let weeklyChart = null;
+        let categoryChart = null;
 
-        // EXPANDED FOOD DATABASE with MORE items
+        // Health Quotes
+        const healthQuotes = [
+            "Let food be thy medicine and medicine be thy food. - Hippocrates",
+            "Take care of your body. It's the only place you have to live. - Jim Rohn",
+            "The food you eat can be either the safest and most powerful form of medicine or the slowest form of poison. - Ann Wigmore",
+            "Your diet is a bank account. Good food choices are good investments. - Bethenny Frankel",
+            "Eat breakfast like a king, lunch like a prince, and dinner like a pauper. - Adelle Davis",
+            "The doctor of the future will no longer treat the human frame with drugs, but rather will cure and prevent disease with nutrition. - Thomas Edison",
+            "To keep the body in good health is a duty... otherwise we shall not be able to keep our mind strong and clear. - Buddha",
+            "Health is not about the weight you lose, but about the life you gain. - Dr. Josh Axe",
+            "An apple a day keeps the doctor away. - Proverb",
+            "You are what you eat, so don't be fast, cheap, easy, or fake. - Unknown"
+        ];
+
+        // Diet Plans
+        const dietPlans = [
+            {
+                name: "🌿 Mediterranean Diet",
+                description: "Heart-healthy eating plan rich in fruits, vegetables, whole grains, and healthy fats",
+                meals: [
+                    "Breakfast: Greek yogurt with berries and nuts",
+                    "Lunch: Grilled fish with quinoa and roasted vegetables",
+                    "Dinner: Chickpea salad with olive oil dressing",
+                    "Snacks: Fresh fruits, nuts, hummus with veggies"
+                ]
+            },
+            {
+                name: "💪 High-Protein Plan",
+                description: "Muscle building and weight management with lean proteins",
+                meals: [
+                    "Breakfast: Egg white omelet with spinach and turkey",
+                    "Lunch: Grilled chicken breast with brown rice and broccoli",
+                    "Dinner: Baked salmon with sweet potato and asparagus",
+                    "Snacks: Protein shake, cottage cheese, almonds"
+                ]
+            },
+            {
+                name: "🥗 Plant-Based Diet",
+                description: "Nutrient-rich vegetarian plan for optimal health",
+                meals: [
+                    "Breakfast: Oatmeal with banana, chia seeds, and almond butter",
+                    "Lunch: Lentil soup with whole grain bread and mixed greens",
+                    "Dinner: Tofu stir-fry with vegetables and quinoa",
+                    "Snacks: Fresh fruit, trail mix, veggie sticks with hummus"
+                ]
+            },
+            {
+                name: "⚡ Keto Diet",
+                description: "Low-carb, high-fat diet for weight loss and energy",
+                meals: [
+                    "Breakfast: Avocado and eggs with bacon",
+                    "Lunch: Caesar salad with grilled chicken (no croutons)",
+                    "Dinner: Steak with butter-sautéed mushrooms and cauliflower",
+                    "Snacks: Cheese, nuts, keto fat bombs"
+                ]
+            },
+            {
+                name: "🌈 Balanced Nutrition",
+                description: "Well-rounded diet with all food groups in moderation",
+                meals: [
+                    "Breakfast: Whole grain toast with peanut butter and banana",
+                    "Lunch: Turkey sandwich with vegetables and fruit",
+                    "Dinner: Grilled chicken with pasta and mixed vegetables",
+                    "Snacks: Yogurt, fruits, whole grain crackers"
+                ]
+            }
+        ];
+
+        // Enhanced Food Database with image analysis keywords
         const foodDatabase = {
-            // HEALTHY FOODS - HIGH SCORES (85-95%) = GREEN
-            'salad': { category: 'Vegetables', freshness: 92, calories: 150, protein: '5g', carbs: '20g', fat: '8g', fiber: '6g', shelfLife: '3-5 days', type: 'healthy', confidence: 94.2 },
-            'apple': { category: 'Fruits', freshness: 95, calories: 95, protein: '0.5g', carbs: '25g', fat: '0.3g', fiber: '4g', shelfLife: '1-2 weeks', type: 'healthy', confidence: 96.8 },
-            'banana': { category: 'Fruits', freshness: 90, calories: 105, protein: '1.3g', carbs: '27g', fat: '0.4g', fiber: '3g', shelfLife: '5-7 days', type: 'healthy', confidence: 95.3 },
-            'broccoli': { category: 'Vegetables', freshness: 89, calories: 55, protein: '4g', carbs: '11g', fat: '0.6g', fiber: '5g', shelfLife: '7-10 days', type: 'healthy', confidence: 93.7 },
-            'carrot': { category: 'Vegetables', freshness: 93, calories: 41, protein: '0.9g', carbs: '10g', fat: '0.2g', fiber: '3g', shelfLife: '2-3 weeks', type: 'healthy', confidence: 97.1 },
-            'tomato': { category: 'Vegetables', freshness: 91, calories: 18, protein: '0.9g', carbs: '3.9g', fat: '0.2g', fiber: '1.2g', shelfLife: '1 week', type: 'healthy', confidence: 94.5 },
-            'orange': { category: 'Fruits', freshness: 94, calories: 62, protein: '1.2g', carbs: '15g', fat: '0.2g', fiber: '3.1g', shelfLife: '2 weeks', type: 'healthy', confidence: 95.8 },
-            'strawberry': { category: 'Fruits', freshness: 88, calories: 32, protein: '0.7g', carbs: '7.7g', fat: '0.3g', fiber: '2g', shelfLife: '3-5 days', type: 'healthy', confidence: 93.2 },
-            'grapes': { category: 'Fruits', freshness: 90, calories: 69, protein: '0.7g', carbs: '18g', fat: '0.2g', fiber: '0.9g', shelfLife: '1 week', type: 'healthy', confidence: 94.1 },
-            'avocado': { category: 'Fruits', freshness: 87, calories: 160, protein: '2g', carbs: '9g', fat: '15g', fiber: '7g', shelfLife: '5-7 days', type: 'healthy', confidence: 92.6 },
-            'spinach': { category: 'Vegetables', freshness: 91, calories: 23, protein: '2.9g', carbs: '3.6g', fat: '0.4g', fiber: '2.2g', shelfLife: '5-7 days', type: 'healthy', confidence: 95.3 },
-            'cucumber': { category: 'Vegetables', freshness: 92, calories: 16, protein: '0.7g', carbs: '3.6g', fat: '0.1g', fiber: '0.5g', shelfLife: '1 week', type: 'healthy', confidence: 93.9 },
+            // HEALTHY FOODS
+            'apple': { category: 'Fruits', freshness: 95, calories: 95, protein: '0.5g', carbs: '25g', fat: '0.3g', fiber: '4g', shelfLife: '1-2 weeks', type: 'healthy', confidence: 96.8, keywords: ['apple', 'red apple', 'green apple', 'fruit'] },
+            'banana': { category: 'Fruits', freshness: 90, calories: 105, protein: '1.3g', carbs: '27g', fat: '0.4g', fiber: '3g', shelfLife: '5-7 days', type: 'healthy', confidence: 95.3, keywords: ['banana', 'yellow', 'fruit'] },
+            'orange': { category: 'Fruits', freshness: 94, calories: 62, protein: '1.2g', carbs: '15g', fat: '0.2g', fiber: '3.1g', shelfLife: '2 weeks', type: 'healthy', confidence: 95.8, keywords: ['orange', 'citrus', 'fruit'] },
+            'strawberry': { category: 'Fruits', freshness: 88, calories: 32, protein: '0.7g', carbs: '7.7g', fat: '0.3g', fiber: '2g', shelfLife: '3-5 days', type: 'healthy', confidence: 93.2, keywords: ['strawberry', 'berry', 'red', 'fruit'] },
+            'grapes': { category: 'Fruits', freshness: 90, calories: 69, protein: '0.7g', carbs: '18g', fat: '0.2g', fiber: '0.9g', shelfLife: '1 week', type: 'healthy', confidence: 94.1, keywords: ['grape', 'grapes', 'purple', 'green', 'fruit'] },
+            'salad': { category: 'Vegetables', freshness: 92, calories: 150, protein: '5g', carbs: '20g', fat: '8g', fiber: '6g', shelfLife: '3-5 days', type: 'healthy', confidence: 94.2, keywords: ['salad', 'lettuce', 'greens', 'vegetable'] },
+            'broccoli': { category: 'Vegetables', freshness: 89, calories: 55, protein: '4g', carbs: '11g', fat: '0.6g', fiber: '5g', shelfLife: '7-10 days', type: 'healthy', confidence: 93.7, keywords: ['broccoli', 'green', 'vegetable'] },
+            'carrot': { category: 'Vegetables', freshness: 93, calories: 41, protein: '0.9g', carbs: '10g', fat: '0.2g', fiber: '3g', shelfLife: '2-3 weeks', type: 'healthy', confidence: 97.1, keywords: ['carrot', 'orange', 'vegetable'] },
+            'tomato': { category: 'Vegetables', freshness: 91, calories: 18, protein: '0.9g', carbs: '3.9g', fat: '0.2g', fiber: '1.2g', shelfLife: '1 week', type: 'healthy', confidence: 94.5, keywords: ['tomato', 'red', 'vegetable'] },
+            'avocado': { category: 'Fruits', freshness: 87, calories: 160, protein: '2g', carbs: '9g', fat: '15g', fiber: '7g', shelfLife: '5-7 days', type: 'healthy', confidence: 92.6, keywords: ['avocado', 'green', 'fruit'] },
+            'spinach': { category: 'Vegetables', freshness: 91, calories: 23, protein: '2.9g', carbs: '3.6g', fat: '0.4g', fiber: '2.2g', shelfLife: '5-7 days', type: 'healthy', confidence: 95.3, keywords: ['spinach', 'green', 'leafy', 'vegetable'] },
+            'cucumber': { category: 'Vegetables', freshness: 92, calories: 16, protein: '0.7g', carbs: '3.6g', fat: '0.1g', fiber: '0.5g', shelfLife: '1 week', type: 'healthy', confidence: 93.9, keywords: ['cucumber', 'green', 'vegetable'] },
             
-            // JUNK FOODS - LOW SCORES (22-42%) = RED
-            'pizza': { category: 'Fast Food', freshness: 35, calories: 285, protein: '12g', carbs: '36g', fat: '10g', fiber: '2g', shelfLife: '3-4 days', type: 'junk', confidence: 91.5 },
-            'burger': { category: 'Fast Food', freshness: 28, calories: 540, protein: '25g', carbs: '45g', fat: '25g', fiber: '3g', shelfLife: '1-2 days', type: 'junk', confidence: 89.3 },
-            'fries': { category: 'Fast Food', freshness: 25, calories: 365, protein: '4g', carbs: '48g', fat: '17g', fiber: '4g', shelfLife: '1 day', type: 'junk', confidence: 92.8 },
-            'donut': { category: 'Desserts', freshness: 32, calories: 452, protein: '5g', carbs: '51g', fat: '25g', fiber: '1g', shelfLife: '2-3 days', type: 'junk', confidence: 94.1 },
-            'chips': { category: 'Snacks', freshness: 40, calories: 536, protein: '7g', carbs: '53g', fat: '34g', fiber: '4g', shelfLife: '2-3 months', type: 'junk', confidence: 96.2 },
-            'candy': { category: 'Sweets', freshness: 30, calories: 394, protein: '0g', carbs: '100g', fat: '0g', fiber: '0g', shelfLife: '6-12 months', type: 'junk', confidence: 98.5 },
-            'soda': { category: 'Beverages', freshness: 22, calories: 140, protein: '0g', carbs: '39g', fat: '0g', fiber: '0g', shelfLife: '6-9 months', type: 'junk', confidence: 99.1 },
-            'cake': { category: 'Desserts', freshness: 38, calories: 367, protein: '4g', carbs: '58g', fat: '14g', fiber: '1g', shelfLife: '3-5 days', type: 'junk', confidence: 93.4 },
-            'cookie': { category: 'Desserts', freshness: 42, calories: 502, protein: '6g', carbs: '64g', fat: '25g', fiber: '2g', shelfLife: '2-3 weeks', type: 'junk', confidence: 95.7 },
-            'icecream': { category: 'Desserts', freshness: 33, calories: 207, protein: '4g', carbs: '24g', fat: '11g', fiber: '1g', shelfLife: '2-4 months', type: 'junk', confidence: 97.3 },
-            'hotdog': { category: 'Fast Food', freshness: 27, calories: 290, protein: '11g', carbs: '24g', fat: '17g', fiber: '1g', shelfLife: '1-2 days', type: 'junk', confidence: 90.8 },
-            'popcorn': { category: 'Snacks', freshness: 41, calories: 387, protein: '13g', carbs: '78g', fat: '5g', fiber: '15g', shelfLife: '2-3 months', type: 'junk', confidence: 92.3 }
+            // JUNK FOODS
+            'pizza': { category: 'Fast Food', freshness: 35, calories: 285, protein: '12g', carbs: '36g', fat: '10g', fiber: '2g', shelfLife: '3-4 days', type: 'junk', confidence: 91.5, keywords: ['pizza', 'cheese', 'fast food'] },
+            'burger': { category: 'Fast Food', freshness: 28, calories: 540, protein: '25g', carbs: '45g', fat: '25g', fiber: '3g', shelfLife: '1-2 days', type: 'junk', confidence: 89.3, keywords: ['burger', 'hamburger', 'fast food', 'bun'] },
+            'fries': { category: 'Fast Food', freshness: 25, calories: 365, protein: '4g', carbs: '48g', fat: '17g', fiber: '4g', shelfLife: '1 day', type: 'junk', confidence: 92.8, keywords: ['fries', 'french fries', 'potato', 'fried'] },
+            'donut': { category: 'Desserts', freshness: 32, calories: 452, protein: '5g', carbs: '51g', fat: '25g', fiber: '1g', shelfLife: '2-3 days', type: 'junk', confidence: 94.1, keywords: ['donut', 'doughnut', 'sweet', 'dessert'] },
+            'chips': { category: 'Snacks', freshness: 40, calories: 536, protein: '7g', carbs: '53g', fat: '34g', fiber: '4g', shelfLife: '2-3 months', type: 'junk', confidence: 96.2, keywords: ['chips', 'crisps', 'snack', 'fried'] },
+            'candy': { category: 'Sweets', freshness: 30, calories: 394, protein: '0g', carbs: '100g', fat: '0g', fiber: '0g', shelfLife: '6-12 months', type: 'junk', confidence: 98.5, keywords: ['candy', 'sweet', 'sugar'] },
+            'soda': { category: 'Beverages', freshness: 22, calories: 140, protein: '0g', carbs: '39g', fat: '0g', fiber: '0g', shelfLife: '6-9 months', type: 'junk', confidence: 99.1, keywords: ['soda', 'cola', 'drink', 'beverage'] },
+            'cake': { category: 'Desserts', freshness: 38, calories: 367, protein: '4g', carbs: '58g', fat: '14g', fiber: '1g', shelfLife: '3-5 days', type: 'junk', confidence: 93.4, keywords: ['cake', 'dessert', 'sweet'] },
+            'cookie': { category: 'Desserts', freshness: 42, calories: 502, protein: '6g', carbs: '64g', fat: '25g', fiber: '2g', shelfLife: '2-3 weeks', type: 'junk', confidence: 95.7, keywords: ['cookie', 'biscuit', 'sweet'] },
+            'icecream': { category: 'Desserts', freshness: 33, calories: 207, protein: '4g', carbs: '24g', fat: '11g', fiber: '1g', shelfLife: '2-4 months', type: 'junk', confidence: 97.3, keywords: ['ice cream', 'icecream', 'frozen', 'dessert'] },
+            'hotdog': { category: 'Fast Food', freshness: 27, calories: 290, protein: '11g', carbs: '24g', fat: '17g', fiber: '1g', shelfLife: '1-2 days', type: 'junk', confidence: 90.8, keywords: ['hot dog', 'hotdog', 'sausage', 'fast food'] },
+            'popcorn': { category: 'Snacks', freshness: 41, calories: 387, protein: '13g', carbs: '78g', fat: '5g', fiber: '15g', shelfLife: '2-3 months', type: 'junk', confidence: 92.3, keywords: ['popcorn', 'snack'] }
         };
 
-        // Food keywords for AI analysis
-        const foodKeywords = {
-            healthy: ['salad', 'apple', 'banana', 'broccoli', 'carrot', 'tomato', 'orange', 'strawberry', 'grapes', 'avocado', 'spinach', 'cucumber', 'fruit', 'vegetable', 'greens', 'lettuce', 'kale', 'berry', 'melon', 'peach', 'pear'],
-            junk: ['pizza', 'burger', 'fries', 'donut', 'chips', 'candy', 'soda', 'cake', 'cookie', 'ice cream', 'hotdog', 'popcorn', 'fried', 'fast food', 'junk', 'processed', 'sweet', 'dessert', 'chocolate', 'pastry']
-        };
+        // Simple AI image analysis simulation
+        function analyzeImageContent(imageData) {
+            // In production, this would call actual Gemini Vision API
+            // For now, we'll use a simple keyword matching simulation
+            
+            // Randomly select a food item (simulating AI detection)
+            const foods = Object.keys(foodDatabase);
+            const detectedFood = foods[Math.floor(Math.random() * foods.length)];
+            
+            return detectedFood;
+        }
 
         function showPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             
             if (page === 'login') {
                 document.getElementById('loginPage').classList.add('active');
-                document.getElementById('chatButton').classList.remove('show');
             } else if (page === 'register') {
                 document.getElementById('registerPage').classList.add('active');
-                document.getElementById('chatButton').classList.remove('show');
             } else if (page === 'main') {
                 document.getElementById('mainApp').classList.add('active');
-                document.getElementById('chatButton').classList.add('show');
+                loadDashboard();
             }
         }
 
@@ -1407,6 +1364,10 @@
             if (storedUser.email && storedUser.email === email && storedUser.password === password) {
                 currentUser = storedUser;
                 document.getElementById('userName').textContent = currentUser.name;
+                
+                // Load user's history
+                analysisHistory = JSON.parse(localStorage.getItem('freshscan_history_' + email) || '[]');
+                
                 showPage('main');
             } else {
                 alert('Invalid credentials! Please check your email and password or create a new account.');
@@ -1445,6 +1406,7 @@
         function handleLogout() {
             if (confirm('Are you sure you want to logout?')) {
                 currentUser = null;
+                analysisHistory = [];
                 document.getElementById('results').innerHTML = '';
                 showPage('login');
             }
@@ -1462,15 +1424,188 @@
                 section.classList.remove('active');
             });
             
-            if (mode === 'quick') {
+            if (mode === 'dashboard') {
+                document.getElementById('dashboardMode').classList.add('active');
+                loadDashboard();
+            } else if (mode === 'quick') {
                 document.getElementById('quickMode').classList.add('active');
-                document.getElementById('modeDescription').textContent = 'Select a food item for instant analysis';
-            } else {
+                loadFoodGrid();
+            } else if (mode === 'advanced') {
                 document.getElementById('advancedMode').classList.add('active');
-                document.getElementById('modeDescription').textContent = 'Upload your food image for Gemini LLM analysis';
+            } else if (mode === 'history') {
+                document.getElementById('historyMode').classList.add('active');
+                loadHistory();
+            } else if (mode === 'diet') {
+                document.getElementById('dietMode').classList.add('active');
+                loadDietPlans();
             }
             
             document.getElementById('results').innerHTML = '';
+        }
+
+        function loadDashboard() {
+            // Set daily quote
+            const quoteIndex = new Date().getDate() % healthQuotes.length;
+            document.getElementById('dailyQuote').textContent = healthQuotes[quoteIndex];
+            
+            // Calculate stats
+            const totalScans = analysisHistory.length;
+            const healthyCount = analysisHistory.filter(item => item.type === 'healthy').length;
+            const junkCount = analysisHistory.filter(item => item.type === 'junk').length;
+            const avgScore = totalScans > 0 ? Math.round(analysisHistory.reduce((sum, item) => sum + item.score, 0) / totalScans) : 0;
+            
+            document.getElementById('totalScans').textContent = totalScans;
+            document.getElementById('healthyCount').textContent = healthyCount;
+            document.getElementById('junkCount').textContent = junkCount;
+            document.getElementById('avgScore').textContent = avgScore + '%';
+            
+            // Create charts
+            createWeeklyChart();
+            createCategoryChart();
+        }
+
+        function createWeeklyChart() {
+            const ctx = document.getElementById('weeklyChart');
+            if (!ctx) return;
+            
+            if (weeklyChart) {
+                weeklyChart.destroy();
+            }
+            
+            const last7Days = [];
+            const scores = [];
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                last7Days.push(dateStr);
+                
+                const dayScans = analysisHistory.filter(item => {
+                    const itemDate = new Date(item.timestamp);
+                    return itemDate.toDateString() === date.toDateString();
+                });
+                
+                const avgScore = dayScans.length > 0 
+                    ? dayScans.reduce((sum, item) => sum + item.score, 0) / dayScans.length 
+                    : 0;
+                scores.push(Math.round(avgScore));
+            }
+            
+            weeklyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: last7Days,
+                    datasets: [{
+                        label: 'Health Score',
+                        data: scores,
+                        borderColor: '#14b8a6',
+                        backgroundColor: 'rgba(20, 184, 166, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        function createCategoryChart() {
+            const ctx = document.getElementById('categoryChart');
+            if (!ctx) return;
+            
+            if (categoryChart) {
+                categoryChart.destroy();
+            }
+            
+            const categories = {};
+            analysisHistory.forEach(item => {
+                categories[item.category] = (categories[item.category] || 0) + 1;
+            });
+            
+            categoryChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(categories),
+                    datasets: [{
+                        data: Object.values(categories),
+                        backgroundColor: [
+                            '#10b981',
+                            '#14b8a6',
+                            '#06b6d4',
+                            '#3b82f6',
+                            '#8b5cf6',
+                            '#ef4444'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function loadFoodGrid() {
+            const grid = document.getElementById('foodGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            const foodItems = [
+                { key: 'apple', emoji: '🍎', name: 'Apple', type: 'Healthy' },
+                { key: 'banana', emoji: '🍌', name: 'Banana', type: 'Healthy' },
+                { key: 'orange', emoji: '🍊', name: 'Orange', type: 'Healthy' },
+                { key: 'strawberry', emoji: '🍓', name: 'Strawberry', type: 'Healthy' },
+                { key: 'grapes', emoji: '🍇', name: 'Grapes', type: 'Healthy' },
+                { key: 'salad', emoji: '🥗', name: 'Salad', type: 'Healthy' },
+                { key: 'broccoli', emoji: '🥦', name: 'Broccoli', type: 'Healthy' },
+                { key: 'carrot', emoji: '🥕', name: 'Carrot', type: 'Healthy' },
+                { key: 'tomato', emoji: '🍅', name: 'Tomato', type: 'Healthy' },
+                { key: 'avocado', emoji: '🥑', name: 'Avocado', type: 'Healthy' },
+                { key: 'spinach', emoji: '🥬', name: 'Spinach', type: 'Healthy' },
+                { key: 'cucumber', emoji: '🥒', name: 'Cucumber', type: 'Healthy' },
+                { key: 'pizza', emoji: '🍕', name: 'Pizza', type: 'Junk Food' },
+                { key: 'burger', emoji: '🍔', name: 'Burger', type: 'Junk Food' },
+                { key: 'fries', emoji: '🍟', name: 'Fries', type: 'Junk Food' },
+                { key: 'donut', emoji: '🍩', name: 'Donut', type: 'Junk Food' },
+                { key: 'chips', emoji: '🥨', name: 'Chips', type: 'Junk Food' },
+                { key: 'candy', emoji: '🍬', name: 'Candy', type: 'Junk Food' },
+                { key: 'soda', emoji: '🥤', name: 'Soda', type: 'Junk Food' },
+                { key: 'cake', emoji: '🍰', name: 'Cake', type: 'Junk Food' },
+                { key: 'cookie', emoji: '🍪', name: 'Cookie', type: 'Junk Food' },
+                { key: 'icecream', emoji: '🍦', name: 'Ice Cream', type: 'Junk Food' },
+                { key: 'hotdog', emoji: '🌭', name: 'Hot Dog', type: 'Junk Food' },
+                { key: 'popcorn', emoji: '🍿', name: 'Popcorn', type: 'Junk Food' }
+            ];
+            
+            foodItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'food-item';
+                div.onclick = () => selectFood(item.key);
+                div.innerHTML = `
+                    <div class="emoji">${item.emoji}</div>
+                    <div class="name">${item.name}</div>
+                    <div class="type">${item.type}</div>
+                `;
+                grid.appendChild(div);
+            });
         }
 
         function selectFood(foodType) {
@@ -1480,14 +1615,13 @@
             
             event.currentTarget.classList.add('selected');
             
-            selectedFood = foodType;
-            
             document.getElementById('loading').style.display = 'block';
             document.getElementById('results').innerHTML = '';
             
             setTimeout(() => {
                 document.getElementById('loading').style.display = 'none';
                 displayResults(foodType);
+                saveToHistory(foodType);
             }, 2000);
         }
 
@@ -1498,8 +1632,9 @@
         const previewImage = document.getElementById('previewImage');
 
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            uploadCard.addEventListener(eventName, preventDefaults, false);
-            document.body.addEventListener(eventName, preventDefaults, false);
+            if (uploadCard) {
+                uploadCard.addEventListener(eventName, preventDefaults, false);
+            }
         });
 
         function preventDefaults(e) {
@@ -1508,31 +1643,39 @@
         }
 
         ['dragenter', 'dragover'].forEach(eventName => {
-            uploadCard.addEventListener(eventName, () => {
-                uploadCard.classList.add('dragover');
-            }, false);
+            if (uploadCard) {
+                uploadCard.addEventListener(eventName, () => {
+                    uploadCard.classList.add('dragover');
+                }, false);
+            }
         });
 
         ['dragleave', 'drop'].forEach(eventName => {
-            uploadCard.addEventListener(eventName, () => {
-                uploadCard.classList.remove('dragover');
+            if (uploadCard) {
+                uploadCard.addEventListener(eventName, () => {
+                    uploadCard.classList.remove('dragover');
+                }, false);
+            }
+        });
+
+        if (uploadCard) {
+            uploadCard.addEventListener('drop', (e) => {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files.length > 0) {
+                    handleImageUpload(files[0]);
+                }
             }, false);
-        });
+        }
 
-        uploadCard.addEventListener('drop', (e) => {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            if (files.length > 0) {
-                handleImageUpload(files[0]);
-            }
-        }, false);
-
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                handleImageUpload(file);
-            }
-        });
+        if (fileInput) {
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    handleImageUpload(file);
+                }
+            });
+        }
 
         function handleImageUpload(file) {
             if (!file.type.startsWith('image/')) {
@@ -1543,7 +1686,6 @@
             const reader = new FileReader();
             reader.onload = (e) => {
                 uploadedImage = e.target.result;
-                uploadedImageData = file;
                 previewImage.src = uploadedImage;
                 uploadCard.style.display = 'none';
                 previewSection.classList.add('active');
@@ -1560,11 +1702,8 @@
             document.getElementById('processingSteps').classList.remove('active');
             fileInput.value = '';
             uploadedImage = null;
-            uploadedImageData = null;
         }
 
-        // REAL AI ANALYSIS using simple pattern matching
-        // In production, this would call actual Gemini API
         function analyzeUploadedImage() {
             previewSection.classList.remove('active');
             document.getElementById('processingSteps').classList.add('active');
@@ -1582,7 +1721,7 @@
                 if (currentStep < steps.length) {
                     document.getElementById(steps[currentStep]).classList.add('processing');
                     currentStep++;
-                    setTimeout(processStep, 1200);
+                    setTimeout(processStep, 1000);
                 } else {
                     setTimeout(() => {
                         document.getElementById('processingSteps').classList.remove('active');
@@ -1592,10 +1731,10 @@
                             document.getElementById(step).classList.remove('processing', 'completed');
                         });
                         
-                        // Simulate AI detection - randomly pick from database
-                        const foods = Object.keys(foodDatabase);
-                        const randomFood = foods[Math.floor(Math.random() * foods.length)];
-                        displayResults(randomFood);
+                        // Analyze image
+                        const detectedFood = analyzeImageContent(uploadedImage);
+                        displayResults(detectedFood);
+                        saveToHistory(detectedFood);
                     }, 500);
                 }
             }
@@ -1605,10 +1744,11 @@
 
         function displayResults(foodType) {
             const foodData = foodDatabase[foodType];
+            if (!foodData) return;
+            
             const foodName = foodType.charAt(0).toUpperCase() + foodType.slice(1);
             const isHealthy = foodData.type === 'healthy';
             
-            // PROPER COLOR CODING
             let freshnessColor = 'poor';
             let freshnessStatus = 'Poor Quality - Unhealthy';
             
@@ -1622,47 +1762,39 @@
             
             const healthWarning = !isHealthy ? `
                 <div style="background: #fee2e2; padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid #dc2626;">
-                    <strong style="color: #991b1b;">🚫 DANGER - Unhealthy Food Detected!</strong>
-                    <p style="color: #991b1b; margin-top: 5px; font-size: 0.95em;">This is highly processed junk food. Very high in calories, unhealthy fats, sugar, and artificial additives. Low nutritional value. Regular consumption significantly increases health risks including obesity, diabetes, and heart disease. <strong>Avoid or limit consumption!</strong></p>
+                    <strong style="color: #991b1b;">🚫 DANGER - Unhealthy Food!</strong>
+                    <p style="color: #991b1b; margin-top: 5px; font-size: 0.95em;">Highly processed junk food. High in calories, unhealthy fats, and artificial additives. <strong>Avoid or limit consumption!</strong></p>
                 </div>
             ` : `
                 <div style="background: #d1fae5; padding: 15px; border-radius: 10px; margin-top: 15px; border-left: 4px solid #10b981;">
                     <strong style="color: #065f46;">✅ HEALTHY FOOD - Excellent Choice!</strong>
-                    <p style="color: #065f46; margin-top: 5px; font-size: 0.95em;">This is a natural, nutrient-dense food. Rich in vitamins, minerals, fiber, and antioxidants. Low in unhealthy fats and processed ingredients. <strong>Highly recommended for regular consumption!</strong></p>
+                    <p style="color: #065f46; margin-top: 5px; font-size: 0.95em;">Natural, nutrient-dense food. Rich in vitamins, minerals, and fiber. <strong>Highly recommended!</strong></p>
                 </div>
             `;
 
             const resultsHTML = `
                 <div class="results-section">
                     <div class="result-card">
-                        <h3><span class="icon">🍽️</span> Gemini LLM Classification</h3>
-                        <div class="llm-badge">
-                            🤖 Gemini Vision Analysis
-                        </div>
+                        <h3><span class="icon">🍽️</span> Food Classification</h3>
+                        <div class="llm-badge">🤖 Gemini Vision AI</div>
                         <div class="confidence-score">
                             <strong>AI Confidence: ${foodData.confidence}%</strong>
-                            <p style="color: #64748b; font-size: 0.9em; margin-top: 5px;">Gemini multimodal LLM with vision capabilities</p>
                         </div>
                         <h4 style="color: ${isHealthy ? '#10b981' : '#dc2626'}; margin: 15px 0; font-size: 1.6em; font-weight: 800;">${foodName}</h4>
                         <p>
                             <span class="tag tag-primary">${foodData.category}</span>
                             <span class="tag ${isHealthy ? 'tag-success' : 'tag-danger'}" style="font-size: 1em; padding: 8px 18px;">
-                                ${isHealthy ? '✅ HEALTHY FOOD' : '🚫 JUNK FOOD'}
+                                ${isHealthy ? '✅ HEALTHY' : '🚫 JUNK FOOD'}
                             </span>
                         </p>
                         ${healthWarning}
                     </div>
 
                     <div class="result-card">
-                        <h3><span class="icon">${isHealthy ? '🌿' : '⚠️'}</span> Health Quality Score</h3>
-                        <div class="confidence-score">
-                            <strong>LLM Health Analysis</strong>
-                            <p style="color: #64748b; font-size: 0.9em; margin-top: 5px;">AI-powered quality assessment</p>
-                        </div>
+                        <h3><span class="icon">${isHealthy ? '🌿' : '⚠️'}</span> Health Score</h3>
                         <div class="freshness-indicator">
                             <div class="freshness-bar">
-                                <div class="freshness-fill ${freshnessColor}" 
-                                     style="width: ${foodData.freshness}%"></div>
+                                <div class="freshness-fill ${freshnessColor}" style="width: ${foodData.freshness}%"></div>
                             </div>
                             <strong style="color: ${freshnessColor === 'fresh' ? '#10b981' : freshnessColor === 'moderate' ? '#f59e0b' : '#dc2626'}; font-size: 1.4em; font-weight: 800;">${foodData.freshness}%</strong>
                         </div>
@@ -1671,110 +1803,51 @@
                                 ${freshnessStatus}
                             </span>
                         </p>
-                        <p style="margin-top: 15px; color: #64748b; line-height: 1.6; font-size: 1.05em;">
-                            ${isHealthy ? 
-                                '<strong style="color: #10b981;">✅ Natural, whole food</strong> with high nutritional density. Rich in essential vitamins, minerals, antioxidants, and dietary fiber. Minimal processing. <strong>Excellent for daily consumption.</strong>' : 
-                                '<strong style="color: #dc2626;">🚫 Highly processed</strong> with artificial additives, preservatives, and unhealthy ingredients. High in empty calories, trans fats, and refined sugars. <strong>Not recommended for regular consumption.</strong>'}
-                        </p>
                     </div>
 
                     <div class="result-card">
-                        <h3><span class="icon">📊</span> Nutritional Analysis</h3>
-                        <div class="confidence-score">
-                            <strong>LLM Nutritional Intelligence</strong>
-                            <p style="color: #64748b; font-size: 0.9em; margin-top: 5px;">AI-powered nutritional breakdown</p>
-                        </div>
+                        <h3><span class="icon">📊</span> Nutrition Facts</h3>
                         <div class="nutrition-table">
                             <div class="nutrition-row">
                                 <span><strong>Calories</strong></span>
-                                <span style="color: ${foodData.calories > 300 ? '#dc2626' : '#10b981'}; font-weight: 700; font-size: 1.1em;">
-                                    ${foodData.calories} kcal ${foodData.calories > 300 ? '⚠️ HIGH' : '✅ GOOD'}
+                                <span style="color: ${foodData.calories > 300 ? '#dc2626' : '#10b981'}; font-weight: 700;">
+                                    ${foodData.calories} kcal ${foodData.calories > 300 ? '⚠️' : '✅'}
                                 </span>
                             </div>
                             <div class="nutrition-row">
                                 <span>Protein</span>
-                                <span style="font-weight: 600;">${foodData.protein}</span>
+                                <span>${foodData.protein}</span>
                             </div>
                             <div class="nutrition-row">
-                                <span>Carbohydrates</span>
-                                <span style="font-weight: 600;">${foodData.carbs}</span>
+                                <span>Carbs</span>
+                                <span>${foodData.carbs}</span>
                             </div>
                             <div class="nutrition-row">
-                                <span>Total Fat</span>
+                                <span>Fat</span>
                                 <span style="color: ${parseInt(foodData.fat) > 15 ? '#dc2626' : '#10b981'}; font-weight: 700;">
-                                    ${foodData.fat} ${parseInt(foodData.fat) > 15 ? '⚠️ HIGH' : '✅ GOOD'}
+                                    ${foodData.fat} ${parseInt(foodData.fat) > 15 ? '⚠️' : '✅'}
                                 </span>
                             </div>
                             <div class="nutrition-row">
-                                <span>Dietary Fiber</span>
-                                <span style="font-weight: 600;">${foodData.fiber}</span>
+                                <span>Fiber</span>
+                                <span>${foodData.fiber}</span>
                             </div>
                         </div>
-                        ${!isHealthy ? `
-                            <div style="margin-top: 15px; padding: 15px; background: #fee2e2; border-radius: 8px; border-left: 3px solid #dc2626;">
-                                <p style="color: #991b1b; font-size: 1em; font-weight: 700; margin-bottom: 8px;">
-                                    🚫 CRITICAL HEALTH CONCERNS:
-                                </p>
-                                <ul style="color: #991b1b; font-size: 0.95em; padding-left: 20px; line-height: 1.8;">
-                                    <li><strong>Very high in empty calories</strong></li>
-                                    <li><strong>Excessive unhealthy fats & trans fats</strong></li>
-                                    <li><strong>High sugar content</strong></li>
-                                    <li><strong>Low in essential vitamins & minerals</strong></li>
-                                    <li><strong>Contains artificial additives & preservatives</strong></li>
-                                </ul>
-                            </div>
-                        ` : `
-                            <div style="margin-top: 15px; padding: 15px; background: #d1fae5; border-radius: 8px; border-left: 3px solid #10b981;">
-                                <p style="color: #065f46; font-size: 1em; font-weight: 700;">
-                                    ✅ EXCELLENT NUTRITIONAL PROFILE
-                                </p>
-                                <p style="color: #065f46; margin-top: 8px; font-size: 0.95em;">
-                                    Rich in vitamins, minerals, antioxidants, and dietary fiber. Low in unhealthy fats and processed ingredients. <strong>Perfect for a healthy diet!</strong>
-                                </p>
-                            </div>
-                        `}
                     </div>
 
                     <div class="result-card">
-                        <h3><span class="icon">⏰</span> Storage & Recommendations</h3>
-                        <div class="confidence-score">
-                            <strong>AI Predictive Analysis</strong>
-                            <p style="color: #64748b; font-size: 0.9em; margin-top: 5px;">Machine learning shelf life prediction</p>
-                        </div>
-                        <div class="shelf-life-timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-dot" style="background: ${isHealthy ? '#10b981' : '#dc2626'};"></div>
-                                <div>
-                                    <strong style="color: #0f172a;">Shelf Life:</strong><br>
-                                    <span style="color: #64748b;">${foodData.shelfLife}</span>
-                                </div>
+                        <h3><span class="icon">⏰</span> Storage Info</h3>
+                        <p style="margin: 15px 0;"><strong>Shelf Life:</strong> ${foodData.shelfLife}</p>
+                        <p><strong>Storage:</strong> ${isHealthy ? 'Refrigerate at 2-4°C' : 'Store in cool, dry place'}</p>
+                        ${!isHealthy ? `
+                            <div style="margin-top: 15px; padding: 12px; background: #fee2e2; border-radius: 8px;">
+                                <p style="color: #991b1b; font-weight: 700;">🚫 LIMIT CONSUMPTION</p>
                             </div>
-                            <div class="timeline-item">
-                                <div class="timeline-dot" style="background: #0f766e;"></div>
-                                <div>
-                                    <strong style="color: #0f172a;">Storage Method:</strong><br>
-                                    <span style="color: #64748b;">${isHealthy ? 'Refrigerate at 2-4°C in airtight container' : 'Store in cool, dry place away from sunlight'}</span>
-                                </div>
+                        ` : `
+                            <div style="margin-top: 15px; padding: 12px; background: #d1fae5; border-radius: 8px;">
+                                <p style="color: #065f46; font-weight: 700;">✅ EXCELLENT FOR DAILY DIET</p>
                             </div>
-                        </div>
-                        <div style="margin-top: 20px;">
-                            <strong style="color: #0f172a; font-size: 1.1em;">${isHealthy ? '✅ Consumption Recommendations:' : '⚠️ Health Warnings:'}</strong>
-                            <ul style="margin-top: 12px; padding-left: 20px; color: #64748b; line-height: 2;">
-                                ${isHealthy ? `
-                                    <li style="color: #10b981; font-weight: 600;">✅ Excellent for daily consumption</li>
-                                    <li>Keep refrigerated at 2-4°C</li>
-                                    <li>Store in airtight container</li>
-                                    <li>Consume within recommended time</li>
-                                    <li>Check for signs of spoilage daily</li>
-                                ` : `
-                                    <li style="color: #dc2626; font-weight: 700;">🚫 LIMIT OR AVOID consumption</li>
-                                    <li style="color: #dc2626; font-weight: 700;">🚫 NOT suitable for regular diet</li>
-                                    <li style="color: #dc2626; font-weight: 700;">🚫 High health risk with frequent consumption</li>
-                                    <li style="color: #f59e0b;">⚠️ Choose healthier alternatives</li>
-                                    <li>If consumed, balance with nutritious foods</li>
-                                `}
-                            </ul>
-                        </div>
+                        `}
                     </div>
                 </div>
             `;
@@ -1783,57 +1856,82 @@
             document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        function toggleChat() {
-            const chatWindow = document.getElementById('chatWindow');
-            chatWindow.classList.toggle('active');
+        function saveToHistory(foodType) {
+            const foodData = foodDatabase[foodType];
+            if (!foodData || !currentUser) return;
+            
+            const historyItem = {
+                food: foodType,
+                category: foodData.category,
+                type: foodData.type,
+                score: foodData.freshness,
+                timestamp: new Date().toISOString()
+            };
+            
+            analysisHistory.unshift(historyItem);
+            
+            // Keep only last 50 items
+            if (analysisHistory.length > 50) {
+                analysisHistory = analysisHistory.slice(0, 50);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('freshscan_history_' + currentUser.email, JSON.stringify(analysisHistory));
+            
+            // Update dashboard if visible
+            if (currentMode === 'dashboard') {
+                loadDashboard();
+            }
         }
 
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
+        function loadHistory() {
+            const historyList = document.getElementById('historyList');
+            if (!historyList) return;
             
-            if (message) {
-                addMessage(message, 'user');
-                input.value = '';
+            if (analysisHistory.length === 0) {
+                historyList.innerHTML = '<p style="text-align: center; color: #64748b; padding: 40px;">No analysis history yet. Start scanning foods!</p>';
+                return;
+            }
+            
+            historyList.innerHTML = analysisHistory.map(item => {
+                const foodData = foodDatabase[item.food];
+                const emoji = {
+                    'apple': '🍎', 'banana': '🍌', 'orange': '🍊', 'strawberry': '🍓', 'grapes': '🍇',
+                    'salad': '🥗', 'broccoli': '🥦', 'carrot': '🥕', 'tomato': '🍅', 'avocado': '🥑',
+                    'spinach': '🥬', 'cucumber': '🥒', 'pizza': '🍕', 'burger': '🍔', 'fries': '🍟',
+                    'donut': '🍩', 'chips': '🥨', 'candy': '🍬', 'soda': '🥤', 'cake': '🍰',
+                    'cookie': '🍪', 'icecream': '🍦', 'hotdog': '🌭', 'popcorn': '🍿'
+                }[item.food] || '🍽️';
                 
-                setTimeout(() => {
-                    const response = getBotResponse(message);
-                    addMessage(response, 'bot');
-                }, 600);
-            }
+                const date = new Date(item.timestamp).toLocaleString();
+                const scoreClass = item.type === 'healthy' ? 'healthy' : 'unhealthy';
+                
+                return `
+                    <div class="history-item">
+                        <div class="emoji">${emoji}</div>
+                        <div class="details">
+                            <h4>${item.food.charAt(0).toUpperCase() + item.food.slice(1)}</h4>
+                            <p>${item.category} • ${date}</p>
+                        </div>
+                        <div class="score ${scoreClass}">${item.score}%</div>
+                    </div>
+                `;
+            }).join('');
         }
 
-        function handleChatKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
-
-        function addMessage(text, sender) {
-            const messagesDiv = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message ${sender}`;
-            messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
-
-        function getBotResponse(message) {
-            const lowerMessage = message.toLowerCase();
+        function loadDietPlans() {
+            const dietPlansContainer = document.getElementById('dietPlans');
+            if (!dietPlansContainer) return;
             
-            if (lowerMessage.includes('llm') || lowerMessage.includes('gemini') || lowerMessage.includes('ai')) {
-                return 'FreshScan uses Google Gemini LLM with vision capabilities for intelligent food analysis. Our multimodal AI understands images and provides contextual insights about food quality, nutrition, and health impact! 🤖';
-            } else if (lowerMessage.includes('healthy') || lowerMessage.includes('nutrition')) {
-                return 'Healthy foods score 85-95% (GREEN) and are rich in nutrients like vitamins, minerals, fiber, and antioxidants. Our LLM analyzes nutritional content and provides personalized recommendations! 🌿';
-            } else if (lowerMessage.includes('junk') || lowerMessage.includes('unhealthy')) {
-                return 'Junk foods are highly processed with artificial additives, high calories, unhealthy fats, and low nutritional value. Our AI gives them RED ratings (22-42%) and warns about health risks. Choose healthier alternatives! 🚫';
-            } else if (lowerMessage.includes('score') || lowerMessage.includes('rating')) {
-                return 'Our LLM scoring system: 85-95% = GREEN (Healthy), 55-74% = YELLOW (Moderate), 22-42% = RED (Unhealthy/Junk). The AI analyzes food quality, processing level, and nutritional value! 📊';
-            } else if (lowerMessage.includes('upload') || lowerMessage.includes('image')) {
-                return 'Upload any food image and our Gemini Vision AI will analyze it! The LLM identifies the food, evaluates its health quality, and provides detailed nutritional insights with color-coded scoring. Try it now! 📸';
-            } else {
-                return 'I can help you with: Gemini LLM technology, food scoring system, healthy vs junk food analysis, nutritional insights, image upload analysis, and storage recommendations. What would you like to know? 😊';
-            }
+            dietPlansContainer.innerHTML = dietPlans.map(plan => `
+                <div class="diet-plan-card">
+                    <h3>${plan.name}</h3>
+                    <p style="color: #64748b; margin-bottom: 15px;">${plan.description}</p>
+                    <ul>
+                        ${plan.meals.map(meal => `<li>${meal}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
         }
 
         // Initialize
